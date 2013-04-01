@@ -1,0 +1,18 @@
+moola
+
+by Erick Veil
+
+2013-03-31
+
+Moola is to be a LAMP based money management software. I'm not going to get into
+all of the expansive, imaginary plans I have for this software, because it's my
+own project, and I have yet to see one of my own projects (ie, not monetarily
+motivated) actually complete.
+
+So I will say the immedate goal for this project is to be able to convert a csv
+format file, downloaded from my bank, into a sql table, that I will query and
+display in a pretty web page as a read-only leger.
+
+Where I go from there is subject to my free time (lol, "free time!") and
+whim.
+
