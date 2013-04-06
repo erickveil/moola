@@ -1,13 +1,15 @@
 #!/usr/bin/php
 <?php
 //
-// moola.php
+// import.php
 // 
 // Erick Veil
 // 2013-03-31
 //
 // Converts csv files of a specific format into an sql table.
 //
+
+include "common-lib.php";
 
 // the log-in information might later be configurable
 $location="localhost";
@@ -18,7 +20,7 @@ $mysqli=mysqli_connect($location,$user,$password,$database);
 if(mysqli_connect_errno())
 {
     $sql_err=mysqli_connect_error();
-    handleError("Failed to connect to database: $sql_err");
+    handleError("Failed to connect to database: $sql_err",$mysqli);
 }
 
 // the top two rows of First Northern CSV files are a title, and col heads.
@@ -31,7 +33,7 @@ $valid=explode(".",$filename);
 if($valid[count($valid)-1]!="csv")
 {
     $type=mime_content_type($filename);
-    handleError("The import file is not csv. Mimetype: ${type}");
+    handleError("The import file is not csv. Mimetype: ${type}",$mysqli);
 }
 
 $flags=FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES;
@@ -39,22 +41,13 @@ $flags=FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES;
 $filerows=file($filename,$flags);
 if($filerows===false)
 {
-    handleError("The argument is not a valid file.");
+    handleError("The argument is not a valid file.",$mysqli);
 }
 
 importData($filerows,$skip,$mysqli);
 
 //end
 $mysqli->close();
-
-// 0.1.0
-function handleError($err_string)
-{
-    GLOBAL $mysqli;
-    echo $err_string."\n";
-    $mysqli->close();
-    exit();
-}
 
 // 0.2.0
 // pass an array of rowws, and the number from the top to skip
@@ -96,7 +89,7 @@ function importData($filerows,$skip,$mysqli)
         }
         else
         {
-            handleError($mysqli->error);
+            handleError($mysqli->error,$mysqli);
         }
 
     }
