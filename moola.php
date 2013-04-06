@@ -1,4 +1,5 @@
 #!/usr/bin/php
+<?php
 //
 // moola.php
 // 
@@ -8,4 +9,5 @@
 // Converts csv files of a specific format into an sql table.
 //
 
+$mysqli=mysqli_connect("localhost","root","","tmp");
 

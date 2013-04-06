@@ -1,0 +1,8 @@
+To start mysql:
+sudo service mysqld start
+
+To log on as a specific user:
+mysql -u username -p password
+
+Create a new user:
+
