@@ -19,6 +19,20 @@ include "common-lib.php";
 function drawLedger($location,$user,$password,$database)
 {
     $mysqli=loadMySqli($location,$user,$password,$database);
+
+    $sql="select DATE, ".
+        "AMOUNT, ".
+        "SERIAL, ".
+        "COMMENTS ".
+        "from downloads ";
+    $result_obj=$mysqli->query($sql);
+    if($result_obj===false)
+    {
+        handleError("Query failed: $sql\n".$msqli->error,$mysqli);
+    }
+
+    
+        
 }
 
 
