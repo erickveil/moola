@@ -9,5 +9,5 @@
 // Converts csv files of a specific format into an sql table.
 //
 
-$mysqli=mysqli_connect("localhost","root","","tmp");
+$mysqli=mysqli_connect("localhost","moola","password","moola");
 

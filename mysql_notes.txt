@@ -1,8 +1,30 @@
-To start mysql:
+- To start mysql:
+
 sudo service mysqld start
 
-To log on as a specific user:
+-To log on as a specific user:
+
 mysql -u username -p password
 
-Create a new user:
+-Create a new user:
+
+create user 'name'@'localhost' identified by 'password';
+grant all privlages on *.* to 'name'@'localhost'
+    with grant option;
+
+- replace 'localhost' with % for any access, or leave as localhost for local
+
+connection only. If use %, you also need localhost.
+
+- create a table, must be done with default column (at least 1)
+
+create table downloads
+    (PTR int auto_increment unique primary key not null,
+    DATE date,
+    AMOUNT double,
+    SERIAL varchar(60),
+    DESCRIPTION varchar(200),
+    COMMENTS varchar(200));
+
+
 
