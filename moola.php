@@ -45,12 +45,15 @@ if($filerows===false)
 importData($filerows,$skip,$mysqli);
 
 //end
-mysqli_close($mysqli);
+$mysqli->close();
 
 // 0.1.0
 function handleError($err_string)
 {
-    exit($err_string."\n");
+    GLOBAL $mysqli;
+    echo $err_string."\n";
+    $mysqli->close();
+    exit();
 }
 
 // 0.2.0
@@ -68,16 +71,34 @@ function importData($filerows,$skip,$mysqli)
 
         $fields=explode(",",$row);
         $fields[0]=fixDate($fields[0]);
+        $fields=fixQuotes($fields);
+        $fields=fixEmptyComments($fields);
 
         $sql="insert into downloads".
-            "values (";
-        for($i=0;i<count($fields);++$i)
+            " (DATE,AMOUNT,SERIAL,DESCRIPTION,COMMENTS)".
+            " values (";
+
+        $d=", ";
+        for($i=0;$i<count($fields);++$i)
         {
-            $sql.=($fields[$i].", ");
+            if($i==count($fields)-1)
+            {
+                $d="";
+            }
+            $sql.=($fields[$i].$d);
         }
         $sql.=")";
 
-        mysqli_query($mysqli,$sql);
+        echo "executing: ${sql}\n";
+        if($mysqli->query($sql)===true)
+        {
+            echo "insert success.\n";
+        }
+        else
+        {
+            handleError($mysqli->error);
+        }
+
     }
 }
 
@@ -88,7 +109,36 @@ function fixDate($date)
     $month=$components[0];
     $day=$components[1];
     $year=$components[2];
-    $date="${year}-${month}-${day}";
+    $date="'${year}-${month}-${day}'";
     return $date;
+}
+
+// 0.2.2
+function fixQuotes($fields)
+{
+    foreach($fields as $key=>$field)
+    {
+        if($field=="")
+        {
+            $fields[$key]="\"\"";
+        }
+    }
+    print_r($fields);
+    return $fields;
+}
+
+// 0.2.3
+function fixEmptyComments($fields)
+{
+    $num=count($fields);
+    if($num<5)
+    {
+        $missing=5-$num;
+        for($i=0;$i<$missing;++$i)
+        {
+            $fields[]="\"\"";
+        }
+    }
+    return $fields;
 }
 
