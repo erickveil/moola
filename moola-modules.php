@@ -31,8 +31,33 @@ function drawLedger($location,$user,$password,$database)
         handleError("Query failed: $sql\n".$msqli->error,$mysqli);
     }
 
-    
-        
+    // build ledger string
+    $html_str="";
+    while($row=$result_obj->fetch_assoc()
+    {
+        $html_str.="
+            <div class='ledger_entry' >".
+
+            "<span class='ledger_date' >".
+            $row["DATE"]."
+            </span>".
+            
+            "<span class='ledger_serial' >".
+            $row["SERIAL"].
+            "</span>".
+
+            "<span class='ledger_amount' >".
+            $row["AMOUNT"]."
+            </span>".
+
+            "<span class='ledger_com' >".
+            $row["COMMENTS"].
+            "</span>".
+
+            "</div>";
+    }
+
+    return $html_str;
 }
 
 
