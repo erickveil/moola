@@ -19,15 +19,15 @@ drawHTMLBody();
 drawHTMLFoot();
 
 
-drawHTMLHead()
+function drawHTMLHead()
 {
 }
 
-drawCSS()
+function drawCSS()
 {
 }
 
-drawHTMLBody()
+function drawHTMLBody()
 {
     $location="localhost";
     $user="moola";
@@ -39,7 +39,7 @@ drawHTMLBody()
     echo "</body>";
 }
 
-drawHTMLFoot()
+function drawHTMLFoot()
 {
 }
 
