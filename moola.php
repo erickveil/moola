@@ -14,17 +14,26 @@
 include "moola-modules.php";
 
 drawHTMLHead();
-drawCSS();
 drawHTMLBody();
 drawHTMLFoot();
 
 
 function drawHTMLHead()
 {
+    echo "
+        <html>
+        <head>
+    ";
+
+    drawCSS();
+
+    echo "</head>";
+
 }
 
 function drawCSS()
 {
+    echo "<link rel='stylesheet' type='text/css' href='styles.css' />";
 }
 
 function drawHTMLBody()
@@ -35,11 +44,12 @@ function drawHTMLBody()
     $database="moola";
 
     echo "<body>";
-    drawLedger($location,$user,$password,$database);
+    echo drawLedger($location,$user,$password,$database);
     echo "</body>";
 }
 
 function drawHTMLFoot()
 {
+    echo "</html>";
 }
 

@@ -35,10 +35,17 @@ function drawLedger($location,$user,$password,$database)
     $html_str="
         <div class='ledger_widget' > 
     ";
+
+    $alternate="ledger_entry_1";
     while($row=$result_obj->fetch_assoc())
     {
+        if($alternate=="ledger_entry_2")
+            $alternate="ledger_entry_1";
+        else
+            $alternate="ledger_entry_2";
+
         $html_str.="
-            <div class='ledger_entry' >".
+            <div class='${alternate}' >".
 
             "<span class='ledger_date' >".
             $row["DATE"]."
@@ -65,4 +72,3 @@ function drawLedger($location,$user,$password,$database)
     return $html_str;
 }
 
-echo drawLedger("localhost","moola","password","moola");
