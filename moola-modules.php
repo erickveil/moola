@@ -32,8 +32,10 @@ function drawLedger($location,$user,$password,$database)
     }
 
     // build ledger string
-    $html_str="";
-    while($row=$result_obj->fetch_assoc()
+    $html_str="
+        <div class='ledger_widget' > 
+    ";
+    while($row=$result_obj->fetch_assoc())
     {
         $html_str.="
             <div class='ledger_entry' >".
@@ -55,9 +57,12 @@ function drawLedger($location,$user,$password,$database)
             "</span>".
 
             "</div>";
+
     }
+    $html_str.="</div>";
+    $result_obj->free();
 
     return $html_str;
 }
 
-
+echo drawLedger("localhost","moola","password","moola");
