@@ -1,0 +1,64 @@
+
+body{
+    background-color:#FDEEF4;
+    font-family:sans-serif;
+}
+
+div.ledger_widget{
+    width:1200px;
+    border:medium solid black;
+    background-color:#E3E4FA;
+    padding: 10px;
+    display:block;
+    float:left;
+    font-size:12;
+}
+
+div.ledger_entry_1{
+    float:left;
+}
+
+div.ledger_entry_2{
+    background-color:#FFEFDE;
+    float:left;
+}
+
+span.ledger_date{
+    width:75px;
+    border-right:medium solid white;
+    margin-right:5px;
+    display:block;
+    float:left;
+    height:15px;
+    padding:5px;
+}
+
+span.ledger_serial{
+    width:35px;
+    border-right:medium solid white;
+    display:block;
+    float:left;
+    height:15px;
+    padding:5px;
+}
+
+span.ledger_amount{
+    width:75px;
+    border-right:medium solid white;
+    margin-right:5px;
+    padding-right:5px;
+    display:block;
+    float:left;
+    height:15px;
+    text-align:right;
+    padding:5px;
+}
+
+span.ledger_com{
+    display:block;
+    float:right;
+    width:900px;
+    padding:5px;
+    overflow:hidden;
+
+}
