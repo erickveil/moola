@@ -16,6 +16,7 @@
 
 include "common-lib.php";
 
+// 0.1
 function drawLedger($location,$user,$password,$database)
 {
     $mysqli=loadMySqli($location,$user,$password,$database);
@@ -56,7 +57,7 @@ function drawLedger($location,$user,$password,$database)
             "</span>".
 
             "<span class='ledger_amount' >".
-            $row["AMOUNT"]."
+            asCurrency($row["AMOUNT"])."
             </span>".
 
             "<span class='ledger_com' >".
@@ -70,5 +71,11 @@ function drawLedger($location,$user,$password,$database)
     $result_obj->free();
 
     return $html_str;
+}
+
+// 0.1.1
+function asCurrency($num)
+{
+    return number_format($num,2,".",",");
 }
 
