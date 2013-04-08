@@ -1,12 +1,12 @@
 
 body{
-    background-color:#FDEEF4;
+    background-color:#ECF0EC;
     font-family:sans-serif;
 }
 
 div.ledger_widget{
     width:1200px;
-    border:medium solid black;
+    border:thick solid black;
     background-color:#E3E4FA;
     padding: 10px;
     display:block;
@@ -45,7 +45,6 @@ span.ledger_serial{
 span.ledger_amount{
     width:75px;
     border-right:medium solid white;
-    margin-right:5px;
     padding-right:5px;
     display:block;
     float:left;
@@ -54,10 +53,42 @@ span.ledger_amount{
     padding:5px;
 }
 
+span.balance_gr{
+    width:75px;
+    border-right:medium solid white;
+    margin-right:5px;
+    padding-right:5px;
+    display:block;
+    float:left;
+    height:15px;
+    text-align:right;
+    padding:5px;
+    background-color:#C3FDB8;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha opacity=50)";
+    filter:alpha(opacity=50);
+    opacity:0.5;
+}
+
+span.balance_rd{
+    width:75px;
+    border-right:medium solid white;
+    margin-right:5px;
+    padding-right:5px;
+    display:block;
+    float:left;
+    height:15px;
+    text-align:right;
+    padding:5px;
+    background-color:#FAAFBA;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha opacity=50)";
+    filter:alpha(opacity=50);
+    opacity:0.5;
+}
+
 span.ledger_com{
     display:block;
     float:right;
-    width:900px;
+    width:800px;
     padding:5px;
     overflow:hidden;
 

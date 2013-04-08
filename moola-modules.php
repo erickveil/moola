@@ -17,7 +17,7 @@
 include "common-lib.php";
 
 // 0.1
-function drawLedger($location,$user,$password,$database)
+function drawLedger($location,$user,$password,$database,$balance)
 {
     $mysqli=loadMySqli($location,$user,$password,$database);
 
@@ -40,6 +40,9 @@ function drawLedger($location,$user,$password,$database)
     $alternate="ledger_entry_1";
     while($row=$result_obj->fetch_assoc())
     {
+        $balance+=$row["AMOUNT"];
+        $bal_class=($balance>0)?"balance_gr":"balance_rd";
+
         if($alternate=="ledger_entry_2")
             $alternate="ledger_entry_1";
         else
@@ -58,6 +61,10 @@ function drawLedger($location,$user,$password,$database)
 
             "<span class='ledger_amount' >".
             asCurrency($row["AMOUNT"])."
+            </span>".
+
+            "<span class='${bal_class}' >".
+            asCurrency($balance)."
             </span>".
 
             "<span class='ledger_com' >".
