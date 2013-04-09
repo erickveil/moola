@@ -9,7 +9,7 @@ mysql -u username -p password
 -Create a new user:
 
 create user 'name'@'localhost' identified by 'password';
-grant all privlages on *.* to 'name'@'localhost'
+grant all privileges on *.* to 'name'@'localhost'
     with grant option;
 
 - replace 'localhost' with % for any access, or leave as localhost for local
