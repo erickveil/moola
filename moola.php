@@ -18,6 +18,7 @@ drawHTMLBody();
 drawHTMLFoot();
 
 
+// 0.1
 function drawHTMLHead()
 {
     echo "
@@ -31,26 +32,37 @@ function drawHTMLHead()
 
 }
 
+// 0.1.1
 function drawCSS()
 {
     echo "<link rel='stylesheet' type='text/css' href='styles.css' />";
 }
 
+// 0.2
 function drawHTMLBody()
 {
     $location="localhost";
     $user="moola";
     $password="password";
     $database="moola";
-    // Y3k bug right here:
-    // (actualy, set default to: one year ago to tomorrow)
-    $range=array("min"=>"1900-01-01", "max"=>"3000-01-01");
+    $range=getDefaultDateRange();
 
     echo "<body>";
     echo drawLedger($location,$user,$password,$database,0,$range);
     echo "</body>";
 }
 
+// 0.2.1
+function getDefaultDateRange()
+{
+    $tomorrow=date("Y-m-d",mktime(0,0,0,date("m"),date("d")+1,date("Y")));
+    $lastyear=date("Y-m-d",mktime(0,0,0,date("m"),date("d"),date("Y")-1));
+    $range=array("min"=>$lastyear, "max"=>$tomorrow);
+    print_r($range);
+    return $range;
+}
+
+// 0.3
 function drawHTMLFoot()
 {
     echo "</html>";
