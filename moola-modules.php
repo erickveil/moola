@@ -17,7 +17,8 @@
 include "common-lib.php";
 
 // 0.1
-function drawLedger($location,$user,$password,$database,$balance)
+// range: [min]=a [max]=b, should be dates, pre-validated.
+function drawLedger($location,$user,$password,$database,$balance,$range)
 {
     $mysqli=loadMySqli($location,$user,$password,$database);
 
@@ -25,7 +26,12 @@ function drawLedger($location,$user,$password,$database,$balance)
         "AMOUNT, ".
         "SERIAL, ".
         "COMMENTS ".
-        "from downloads ";
+        "from downloads ".
+        "where DATE between ".
+        "'".$range["min"]."' and ".
+        "'".$range["max"]."' ".
+        "order by DATE";
+
     $result_obj=$mysqli->query($sql);
     if($result_obj===false)
     {

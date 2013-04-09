@@ -42,9 +42,12 @@ function drawHTMLBody()
     $user="moola";
     $password="password";
     $database="moola";
+    // Y3k bug right here:
+    // (actualy, set default to: one year ago to tomorrow)
+    $range=array("min"=>"1900-01-01", "max"=>"3000-01-01");
 
     echo "<body>";
-    echo drawLedger($location,$user,$password,$database);
+    echo drawLedger($location,$user,$password,$database,0,$range);
     echo "</body>";
 }
 
