@@ -65,9 +65,16 @@ function drawHTMLBody()
     $password="password";
     $database="moola";
     $range=getDefaultDateRange();
+    $db_login=Array(
+        "loc"=>$location,
+        "usr"=>$user,
+        "pw"=>$password,
+        "db"=>$database);
 
     echo "<body>";
-    echo drawLedger($location,$user,$password,$database,0,$range);
+    echo "<div id='hook_1'>";
+    echo drawLedger($db_login,0,$range);
+    echo "<div>";
     echo "</body>";
 }
 

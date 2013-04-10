@@ -18,12 +18,17 @@ include "common-lib.php";
 
 // 0.1
 // range: [min]=a [max]=b, should be dates, pre-validated.
-function drawLedger($location,$user,$password,$database,$balance,$range)
+// dbLogin: [loc]=URI,[usr]=sql user name,[pw]=sql password, [db]=sql database
+function drawLedger($db_login,$balance,$range)
 {
 
     $date_range=drawDateRange("redrawLedger",$range);
 
-    $mysqli=loadMySqli($location,$user,$password,$database);
+    $mysqli=loadMySqli(
+        $db_login["loc"],
+        $db_login["usr"],
+        $db_login["pw"],
+        $db_login["db"]);
 
     $sql="select DATE, ".
         "AMOUNT, ".

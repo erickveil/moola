@@ -37,6 +37,11 @@ function redrawLedger($min_date,$max_date)
     $password="password";
     $database="moola";
     $range=Array("min"=>$min_date, "max"=>$max_date);
+    $db_login=Array(
+        "loc"=>$location,
+        "usr"=>$user,
+        "pw"=>$password,
+        "db"=>$database);
 
-    echo drawLedger($location,$user,$password,$database,0,$range);
+    echo drawLedger($db_login,0,$range);
 }
