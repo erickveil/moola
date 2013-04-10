@@ -20,6 +20,9 @@ include "common-lib.php";
 // range: [min]=a [max]=b, should be dates, pre-validated.
 function drawLedger($location,$user,$password,$database,$balance,$range)
 {
+
+    $date_range=drawDateRange("redrawLedger",$range);
+
     $mysqli=loadMySqli($location,$user,$password,$database);
 
     $sql="select DATE, ".
@@ -42,6 +45,8 @@ function drawLedger($location,$user,$password,$database,$balance,$range)
     $html_str="
         <div class='ledger_widget' > 
     ";
+
+    $html_str.=$date_range;
 
     $alternate="ledger_entry_1";
     while($row=$result_obj->fetch_assoc())
@@ -90,5 +95,46 @@ function drawLedger($location,$user,$password,$database,$balance,$range)
 function asCurrency($num)
 {
     return number_format($num,2,".",",");
+}
+
+// 0.1.2
+// DateRange sub-widget allows refining its parent component by a specific  
+// date range. 
+// the button executes the onclick event, which is passed as the string $function
+// the paraneters of $function are always the values in the date range.
+// requires inclusion of jquery, jquery-ui, 
+// also provide a default range object ([min]=a, [max]=b)
+function drawDateRange($function,$default)
+{
+    $html_str="<div class='date_ranger'>";
+
+    $html_str.="
+        <label for='min'>From </label>
+        <input 
+            type='text' 
+            id='min' 
+            name='min' 
+            value='".$default['min']."'
+        />
+
+        <label for='max'> To </label>
+        <input 
+            type='text' 
+            id='max' 
+            name='max' 
+            value='".$default['max']."'
+        />
+
+        <input 
+            type='button' 
+            id='get_range' 
+            onclick='${function}()' 
+            value='Select Range'
+        />
+    ";
+
+    $html_str.="</div>";
+
+    return $html_str;
 }
 

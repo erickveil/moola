@@ -21,12 +21,28 @@ drawHTMLFoot();
 // 0.1
 function drawHTMLHead()
 {
+    // script paths defines in common-lib.php
+    GLOBAL $jquery;
+    GLOBAL $jquery_ui;
+    GLOBAL $jqui_core;
+    GLOBAL $jqui_widget;
+    GLOBAL $jqui_date;
+
     echo "
         <html>
         <head>
     ";
 
     drawCSS();
+
+    echo"
+        <script src='${jquery}' ></script>
+        <script src='${jquery_ui}' ></script>
+        <script src='${jqui_core}' ></script>
+        <script src='${jqui_widget}' ></script>
+        <script src='${jqui_date}' ></script>
+        <script src='moola-control.js' ></script>
+    ";
 
     echo "</head>";
 
@@ -35,7 +51,10 @@ function drawHTMLHead()
 // 0.1.1
 function drawCSS()
 {
+    GLOBAL $jqui_css_base;
+
     echo "<link rel='stylesheet' type='text/css' href='styles.css' />";
+    echo "<link rel='stylesheet' type='text/css' href='${jqui_css_base}' />";
 }
 
 // 0.2
@@ -58,7 +77,7 @@ function getDefaultDateRange()
     $tomorrow=date("Y-m-d",mktime(0,0,0,date("m"),date("d")+1,date("Y")));
     $lastyear=date("Y-m-d",mktime(0,0,0,date("m"),date("d"),date("Y")-1));
     $range=array("min"=>$lastyear, "max"=>$tomorrow);
-    print_r($range);
+// print_r($range);
     return $range;
 }
 
