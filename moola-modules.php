@@ -52,6 +52,7 @@ function drawLedger($db_login,$balance,$range,$hook_id)
     ";
 
     $html_str.=$date_range;
+    $html_str.="<div class='ledger_fields' >";
 
     $alternate="ledger_entry_1";
     while($row=$result_obj->fetch_assoc())
@@ -90,7 +91,7 @@ function drawLedger($db_login,$balance,$range,$hook_id)
             "</div>";
 
     }
-    $html_str.="</div>";
+    $html_str.="</div></div>";
     $result_obj->free();
 
     return $html_str;
