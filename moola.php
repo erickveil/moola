@@ -70,10 +70,11 @@ function drawHTMLBody()
         "usr"=>$user,
         "pw"=>$password,
         "db"=>$database);
-
+    $hook_id="hook_1";
+    
     echo "<body>";
-    echo "<div id='hook_1'>";
-    echo drawLedger($db_login,0,$range);
+    echo "<div class='hook' id='${hook_id}'>";
+    echo drawLedger($db_login,0,$range,$hook_id);
     echo "<div>";
     echo "</body>";
 }

@@ -19,10 +19,10 @@ include "common-lib.php";
 // 0.1
 // range: [min]=a [max]=b, should be dates, pre-validated.
 // dbLogin: [loc]=URI,[usr]=sql user name,[pw]=sql password, [db]=sql database
-function drawLedger($db_login,$balance,$range)
+function drawLedger($db_login,$balance,$range,$hook_id)
 {
 
-    $date_range=drawDateRange("redrawLedger",$range);
+    $date_range=drawDateRange("redrawLedger",$range,$hook_id);
 
     $mysqli=loadMySqli(
         $db_login["loc"],
@@ -107,9 +107,10 @@ function asCurrency($num)
 // date range. 
 // the button executes the onclick event, which is passed as the string $function
 // the paraneters of $function are always the values in the date range.
+// and the id of the parent widget's hook
 // requires inclusion of jquery, jquery-ui, 
 // also provide a default range object ([min]=a, [max]=b)
-function drawDateRange($function,$default)
+function drawDateRange($function,$default,$hook_id)
 {
     $html_str="<div class='date_ranger'>";
 
@@ -133,7 +134,7 @@ function drawDateRange($function,$default)
         <input 
             type='button' 
             id='get_range' 
-            onclick='${function}()' 
+            onclick='${function}(\"${hook_id}\");' 
             value='Select Range'
         />
     ";

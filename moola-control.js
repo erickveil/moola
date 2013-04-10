@@ -37,23 +37,20 @@ $(function()
 // "drawDateRange()" This establishes that the date range selector is a
 // sub-widget of the Ledger, and by selecting a range, and clicking the
 // submission button, the ledger will be re-drawn with the new date range.
-function redrawLedger()
+function redrawLedger(hook_id)
 {
     var min_date=$("#min").val();
     var max_date=$("#max").val();
 
-
-    alert("starting request");
-    var addy="widget-redraw.php?func=redrawLedger&min="+min_date+"&max="+max_date;
-    alert(addy);
+    var addy="widget-redraw.php?func=redrawLedger&min="+min_date+"&max="+max_date+"&hook="+hook_id;
 
     $.ajax({
         type:"GET",
         url:addy,
         cache:false
     }).done(function(html_str){
-        alert(html_str);
-        $(".ledger_widget").html(html_str);
+        $("#"+hook_id).html(html_str);
     });
 }
+
 
