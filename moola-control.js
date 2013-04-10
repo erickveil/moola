@@ -7,10 +7,15 @@
 // javascript and jquery scripts to control various input modules in moola
 //
 
-// Date Range Sub-widget handling. Allows a selectable calendar
-// requires jquery-ui
+// after page loads
 $(function()
 {
+    addDatepickers();
+});
+
+// date picker attributes need to be added on each reload of a widget
+function addDatepickers()
+{   
     // all of this work for something that will be native in html 5 -_-
     var def_min=$("#min").val();
     var def_max=$("#max").val();
@@ -31,7 +36,7 @@ $(function()
             $("#min").datepicker("option","maxDate",selectedDate);
         }
     });
-});
+}
 
 // pass the name of this function as a string to the php function,
 // "drawDateRange()" This establishes that the date range selector is a
@@ -50,6 +55,7 @@ function redrawLedger(hook_id)
         cache:false
     }).done(function(html_str){
         $("#"+hook_id).html(html_str);
+        addDatepickers();
     });
 }
 
