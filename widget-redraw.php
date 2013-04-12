@@ -20,10 +20,9 @@ $func=$_GET['func'];
 switch($func)
 {
     case "redrawLedger":
-        $min=$_GET['min'];
-        $max=$_GET['max'];
+        $range=Array('min'=>$_GET['min'], 'max'=>$_GET['max']);
         $hook_id=$_GET['hook'];
-        echo redrawLedger($min,$max,$hook_id);
+        echo redrawLedger($range,$hook_id);
         break;
     default:
         echo "unrecognized widget-redraw function.";
@@ -31,18 +30,18 @@ switch($func)
 }
 
 // 0.1
-function redrawLedger($min_date,$max_date,$hook_id)
+function redrawLedger($range,$hook_id)
 {
     $location="localhost";
     $user="moola";
     $password="password";
     $database="moola";
-    $range=Array("min"=>$min_date, "max"=>$max_date);
     $db_login=Array(
         "loc"=>$location,
         "usr"=>$user,
         "pw"=>$password,
         "db"=>$database);
+    $start_bal=getPriorBalance($db_login,$range['min']);
 
-    echo drawLedger($db_login,0,$range,$hook_id);
+    echo drawLedger($db_login,$start_bal,$range,$hook_id);
 }

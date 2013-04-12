@@ -71,8 +71,8 @@ function drawHTMLBody()
         "pw"=>$password,
         "db"=>$database);
     $hook_id="hook_1";
-    $start_bal=getPriorBalance($db_login,$range[min]);
-    echo $start_bal;
+
+    $start_bal=getPriorBalance($db_login,$range["min"]);
     
     echo "<body>";
     echo "<div class='hook' id='${hook_id}'>";
