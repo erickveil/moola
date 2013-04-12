@@ -41,3 +41,30 @@ function loadMySqli($location,$user,$password,$database)
      }
      return $mysqli;
 }
+
+// for database querries with a running ballance, this gets the ballance up to
+// before the querry.
+function getPriorBalance($db_login,$date)
+{
+    $mysqli=loadMySqli(
+    $db_login["loc"],
+    $db_login["usr"],
+    $db_login["pw"],
+    $db_login["db"]);
+
+    $sql="select sum(AMOUNT) ".
+        "from downloads ".
+        "where DATE < '${date}';";
+
+    $result_obj=$mysqli->query($sql);
+    if($result_obj===false)
+    {
+        handleError("Query failed: $sql\n".$mysqli->error,$mysqli);
+    }
+    
+    $query_row=$result_obj->fetch_row();
+
+    $ret=($query_row[0]==NULL)?"0":$query_row[0];
+    return $ret;
+}
+

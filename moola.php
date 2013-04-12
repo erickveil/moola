@@ -71,10 +71,12 @@ function drawHTMLBody()
         "pw"=>$password,
         "db"=>$database);
     $hook_id="hook_1";
+    $start_bal=getPriorBalance($db_login,$range[min]);
+    echo $start_bal;
     
     echo "<body>";
     echo "<div class='hook' id='${hook_id}'>";
-    echo drawLedger($db_login,0,$range,$hook_id);
+    echo drawLedger($db_login,$start_bal,$range,$hook_id);
     echo "<div>";
     echo "</body>";
 }

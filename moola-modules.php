@@ -43,7 +43,7 @@ function drawLedger($db_login,$balance,$range,$hook_id)
     $result_obj=$mysqli->query($sql);
     if($result_obj===false)
     {
-        handleError("Query failed: $sql\n".$msqli->error,$mysqli);
+        handleError("Query failed: $sql\n".$mysqli->error,$mysqli);
     }
 
     // build ledger string
