@@ -65,7 +65,7 @@ function drawLedger($db_login,$balance,$range,$hook_id)
         else
             $alternate="ledger_entry_2";
 
-        $html_str.=buildLedgerElements($alternate,$row,$bal_class,$balance);
+        $html_str.=buildLedgerElements2($alternate,$row,$bal_class,$balance);
     }
     $html_str.="</div></div>";
     $result_obj->free();
@@ -122,6 +122,12 @@ function drawDateRange($function,$default,$hook_id)
 }
 
 // 0.1.3
+// draws the html form elements for one entry of the ledger, returning the string.
+// $alternate is the class for the entry's div, which alternates classes. $row 
+// is the sql query object for the row that the data comes from. $bal_class 
+// is the class for the balance field, which depends on if it's positive or 
+// negative, so that it receives different styles for each. $balance is the 
+// balance value itself.
 function buildLedgerElements($alternate,$row,$bal_class,$balance)
 {
     $html_str="
@@ -146,6 +152,31 @@ function buildLedgerElements($alternate,$row,$bal_class,$balance)
     "<span class='ledger_com' >".
     $row["COMMENTS"].
     "</span>".
+
+    "</div>";
+
+    return $html_str;
+}
+
+function buildLedgerElements2($alternate,$row,$bal_class,$balance)
+{
+    $html_str="
+    <div class='${alternate}' >".
+
+    "<input type='text' class='ledger_date' value='".
+    $row["DATE"]."' />".
+    
+    "<input type='text' class='ledger_serial' value='". 
+    $row["SERIAL"]."' />".
+
+    "<input type='text' class='ledger_amount' value='".
+    asCurrency($row["AMOUNT"])."' />".
+
+    "<input type='text' class='${bal_class}' value='".
+    asCurrency($balance)."' />".
+
+    "<input type='text' class='ledger_com' value='".
+    $row["COMMENTS"]."' />".
 
     "</div>";
 
