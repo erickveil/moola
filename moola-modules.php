@@ -65,7 +65,7 @@ function drawLedger($db_login,$balance,$range,$hook_id)
         else
             $alternate="ledger_entry_2";
 
-        $html_str.=buildLedgerElements2($alternate,$row,$bal_class,$balance);
+        $html_str.=buildLedgerElements($alternate,$row,$bal_class,$balance);
     }
     $html_str.="</div></div>";
     $result_obj->free();
@@ -129,36 +129,6 @@ function drawDateRange($function,$default,$hook_id)
 // negative, so that it receives different styles for each. $balance is the 
 // balance value itself.
 function buildLedgerElements($alternate,$row,$bal_class,$balance)
-{
-    $html_str="
-    <div class='${alternate}' >".
-
-    "<span class='ledger_date' >".
-    $row["DATE"]."
-    </span>".
-    
-    "<span class='ledger_serial' >".
-    $row["SERIAL"].
-    "</span>".
-
-    "<span class='ledger_amount' >".
-    asCurrency($row["AMOUNT"])."
-    </span>".
-
-    "<span class='${bal_class}' >".
-    asCurrency($balance)."
-    </span>".
-
-    "<span class='ledger_com' >".
-    $row["COMMENTS"].
-    "</span>".
-
-    "</div>";
-
-    return $html_str;
-}
-
-function buildLedgerElements2($alternate,$row,$bal_class,$balance)
 {
     $html_str="
     <div class='${alternate}' >".
