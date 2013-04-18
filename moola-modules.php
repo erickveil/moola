@@ -65,31 +65,7 @@ function drawLedger($db_login,$balance,$range,$hook_id)
         else
             $alternate="ledger_entry_2";
 
-        $html_str.="
-            <div class='${alternate}' >".
-
-            "<span class='ledger_date' >".
-            $row["DATE"]."
-            </span>".
-            
-            "<span class='ledger_serial' >".
-            $row["SERIAL"].
-            "</span>".
-
-            "<span class='ledger_amount' >".
-            asCurrency($row["AMOUNT"])."
-            </span>".
-
-            "<span class='${bal_class}' >".
-            asCurrency($balance)."
-            </span>".
-
-            "<span class='ledger_com' >".
-            $row["COMMENTS"].
-            "</span>".
-
-            "</div>";
-
+        $html_str.=buildLedgerElements($alternate,$row,$bal_class,$balance);
     }
     $html_str.="</div></div>";
     $result_obj->free();
@@ -141,6 +117,37 @@ function drawDateRange($function,$default,$hook_id)
     ";
 
     $html_str.="</div>";
+
+    return $html_str;
+}
+
+// 0.1.3
+function buildLedgerElements($alternate,$row,$bal_class,$balance)
+{
+    $html_str="
+    <div class='${alternate}' >".
+
+    "<span class='ledger_date' >".
+    $row["DATE"]."
+    </span>".
+    
+    "<span class='ledger_serial' >".
+    $row["SERIAL"].
+    "</span>".
+
+    "<span class='ledger_amount' >".
+    asCurrency($row["AMOUNT"])."
+    </span>".
+
+    "<span class='${bal_class}' >".
+    asCurrency($balance)."
+    </span>".
+
+    "<span class='ledger_com' >".
+    $row["COMMENTS"].
+    "</span>".
+
+    "</div>";
 
     return $html_str;
 }
