@@ -28,32 +28,38 @@ div.ledger_entry_2{
     float:left;
 }
 
-span.ledger_date{
-    width:75px;
+input.ledger_date{
+    width:80px;
+    border-style:none;
+    background-color:inherit;
     border-right:medium solid white;
     margin-right:5px;
     display:block;
     float:left;
-    height:15px;
+    height:25px;
     padding:5px;
 }
 
-span.ledger_serial{
+input.ledger_serial{
     width:35px;
+    border-style:none;
+    background-color:inherit;
     border-right:medium solid white;
     display:block;
     float:left;
-    height:15px;
+    height:25px;
     padding:5px;
 }
 
-span.ledger_amount{
+input.ledger_amount{
     width:75px;
+    border-style:none;
+    background-color:inherit;
     border-right:medium solid white;
     padding-right:5px;
     display:block;
     float:left;
-    height:15px;
+    height:25px;
     text-align:right;
     padding:5px;
 }
@@ -90,11 +96,14 @@ span.balance_rd{
     opacity:0.5;
 }
 
-span.ledger_com{
+input.ledger_com{
     display:block;
+    border-style:none;
+    background-color:inherit;
     float:right;
     width:800px;
     padding:5px;
+    height:25px;
     overflow:hidden;
 
 }

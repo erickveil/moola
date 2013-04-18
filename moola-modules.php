@@ -172,8 +172,9 @@ function buildLedgerElements2($alternate,$row,$bal_class,$balance)
     "<input type='text' class='ledger_amount' value='".
     asCurrency($row["AMOUNT"])."' />".
 
-    "<input type='text' class='${bal_class}' value='".
-    asCurrency($balance)."' />".
+    "<span type='text' class='${bal_class}' >".
+    asCurrency($balance).
+    "</span>".
 
     "<input type='text' class='ledger_com' value='".
     $row["COMMENTS"]."' />".
