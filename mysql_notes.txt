@@ -52,3 +52,12 @@ Deleted entries are retained for post-mortems and recovery.
 null (null in this field is not deleted)
 user (user explicitly deleted the entry)
 edit (deleted entry caused by an edit that takes its place)
+
+- back up the database
+(This refers to my paths on my laptop, so I remember. mysqldump will have a
+different path on my linux box).
+
+C:\wamp\bin\mysql\mysql5.5.24\bin\mysqldump.exe -u moola -p password moola > C:\wamp\www\moola\base.sql
+
+then to restore it from scratch (like when I set up on a new system):
+mysql -u moola -p moola < path/to/base.sql
