@@ -24,7 +24,31 @@ create table downloads
     AMOUNT double,
     SERIAL varchar(60),
     DESCRIPTION varchar(200),
-    COMMENTS varchar(200));
+    COMMENTS varchar(200),
+    SOURCE varchar(20),
+    DEL varchar(20));
 
+- to add a column to the table
+    alter table downloads
+    add SOURCE varchar(20);
 
+- to add a value to an existing field
+    update downloads
+    set SOURCE = 'download'
 
+SOURCE values:
+SOURCE was made varchar to be human readable, at the sacrafice of possible
+typo entries. Since code enters the values here, and not humans, as long as the
+code is correct, the values will query correctly.
+
+download (data is sourced from a download)
+user (data entry was manually entered by a human via the interface)
+edit (data entry was created during an edit of a download field)
+
+DEL values:
+like source, DEL holds string data so that it's readable in code.
+Deleted entries are retained for post-mortems and recovery.
+
+null (null in this field is not deleted)
+user (user explicitly deleted the entry)
+edit (deleted entry caused by an edit that takes its place)

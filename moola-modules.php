@@ -30,14 +30,19 @@ function drawLedger($db_login,$balance,$range,$hook_id)
         $db_login["pw"],
         $db_login["db"]);
 
-    $sql="select DATE, ".
+    $sql="select ".
+        "PTR, ".
+        "DATE, ".
         "AMOUNT, ".
         "SERIAL, ".
         "COMMENTS ".
         "from downloads ".
-        "where DATE between ".
+        "where ".
+        "(DATE between ".
         "'".$range["min"]."' and ".
-        "'".$range["max"]."' ".
+        "'".$range["max"]."') ".
+        "and ".
+        "(DEL is null) ".
         "order by DATE";
 
     $result_obj=$mysqli->query($sql);
@@ -130,23 +135,25 @@ function drawDateRange($function,$default,$hook_id)
 // balance value itself.
 function buildLedgerElements($alternate,$row,$bal_class,$balance)
 {
+    $id=$row["PTR"];
+
     $html_str="
     <div class='${alternate}' >".
 
-    "<input type='text' class='ledger_date' value='".
+    "<input type='text' class='ledger_date' id=${id} value='".
     $row["DATE"]."' />".
     
-    "<input type='text' class='ledger_serial' value='". 
+    "<input type='text' class='ledger_serial' id=${id} value='". 
     $row["SERIAL"]."' />".
 
-    "<input type='text' class='ledger_amount' value='".
+    "<input type='text' class='ledger_amount' id=${id} value='".
     asCurrency($row["AMOUNT"])."' />".
 
-    "<span type='text' class='${bal_class}' >".
+    "<span type='text' class='${bal_class}' id=${id} >".
     asCurrency($balance).
     "</span>".
 
-    "<input type='text' class='ledger_com' value='".
+    "<input type='text' class='ledger_com' id=${id} value='".
     $row["COMMENTS"]."' />".
 
     "</div>";
