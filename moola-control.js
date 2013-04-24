@@ -69,11 +69,14 @@ function ledgerDateChange(selectedDate,dom_obj)
     entry.ptr=id;
     entry.date=selectedDate;
 
+    var ledger_hook=$(dom_obj).parents(".hook");
+
     if (old_date == selectedDate)
         return;
 
     addNewEntryToLedger(entry);
     deleteEntryFromLedger(ptr,"edit");
+    redrawLedger(hook_id);
 }
 
 // 0.1.1.1.1
