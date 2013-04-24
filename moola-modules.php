@@ -143,17 +143,17 @@ function buildLedgerElements($alternate,$row,$bal_class,$balance)
     "<input type='text' field='ledger_date' id=${id} value='".
     $row["DATE"]."' />".
     
-    "<input type='text' class='ledger_serial' id=${id} value='". 
+    "<input type='text' field='ledger_serial' id=${id} value='". 
     $row["SERIAL"]."' />".
 
-    "<input type='text' class='ledger_amount' id=${id} value='".
+    "<input type='text' field='ledger_amount' id=${id} value='".
     asCurrency($row["AMOUNT"])."' />".
 
-    "<span type='text' class='${bal_class}' id=${id} >".
+    "<span type='text' field='${bal_class}' id=${id} >".
     asCurrency($balance).
     "</span>".
 
-    "<input type='text' class='ledger_com' id=${id} value='".
+    "<input type='text' field='ledger_com' id=${id} value='".
     $row["COMMENTS"]."' />".
 
     "</div>";

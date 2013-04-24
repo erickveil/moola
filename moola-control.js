@@ -51,19 +51,53 @@ function addDatepickers()
         dateFormat: "yy-mm-dd",
         changeYear: false,
         onClose: function(selectedDate){
-            ledgerDateChange(selectedDate);
+            var id=$(this).attr("id");
+            ledgerDateChange(selectedDate,this);
         }
     });
 }
 
 // 0.1.1.1
-function ledgerDateChange(selectedDate)
+// The ledger date is a "primary field". This means that when it is edited,
+// instead of altering the entry, we preserve it, set it to deleted by edit,
+// then insert a new entry into the table. This will allow restoring edited
+// items to their downloaded state and also help prevent downloading
+// duplicate entries, even after editing.
+function ledgerDateChange(selectedDate,dom_obj)
 {
-    var val=$(this).attr("value");
-    if (selectedDate != val)
-        alert("mismatch");
-    else
-        alert("match");
+    var id=$(dom_obj).attr("id");
+    var old_date=$(dom_obj).attr("value");
+
+    var entry=new Object;
+    var entry.serial=$("[field=ledger_serial][id="+id+"]").val();
+    var entry.amt=$("[field=ledger_amount][id="+id+"]").val();
+    var entry.comment=$("[field=ledger_com][id="+id+"]").val();
+    var entry.ptr=id;
+    var entry.date=selectedDate;
+
+    if (old_date == entry[date])
+        return;
+
+    addNewEntryToLedger(entry);
+    deleteEntryFromLedger(ptr,"edit");
+}
+
+// 0.1.1.1.1
+// used to insert a new entry into the downloads ledger table
+// entry is an object. It should have members {ptr, date, serial, amt,
+// comment}
+function addNewEntryToLedger(entry)
+{
+
+}
+
+// 0.1.1.1.2
+// adds a value to the DEL column for the entry at PTR, indicating that it is
+// "deleted" by virtue of its DEL value is not null
+// pass the ptr for the entry and the type of deletion
+function deleteEntryFromLedger(ptr,edit_type)
+{
+
 }
 
 // 0.2.0

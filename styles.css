@@ -40,7 +40,7 @@ input[field="ledger_date"]{
     padding:5px;
 }
 
-input.ledger_serial{
+input[field="ledger_serial"]{
     width:35px;
     border-style:none;
     background-color:inherit;
@@ -51,7 +51,7 @@ input.ledger_serial{
     padding:5px;
 }
 
-input.ledger_amount{
+input[field="ledger_amount"]{
     width:75px;
     border-style:none;
     background-color:inherit;
@@ -64,7 +64,7 @@ input.ledger_amount{
     padding:5px;
 }
 
-span.balance_gr{
+span[field="balance_gr"]{
     width:75px;
     border-right:medium solid white;
     margin-right:5px;
@@ -80,7 +80,7 @@ span.balance_gr{
     opacity:0.5;
 }
 
-span.balance_rd{
+span[field="balance_rd"]{
     width:75px;
     border-right:medium solid white;
     margin-right:5px;
@@ -96,7 +96,7 @@ span.balance_rd{
     opacity:0.5;
 }
 
-input.ledger_com{
+input[field="ledger_com"]{
     display:block;
     border-style:none;
     background-color:inherit;
