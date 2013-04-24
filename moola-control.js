@@ -68,8 +68,10 @@ function ledgerDateChange(selectedDate,dom_obj)
     entry.comment=$("[field=ledger_com][id="+id+"]").val();
     entry.ptr=id;
     entry.date=selectedDate;
+    entry.source="edit";
 
     var ledger_hook=$(dom_obj).parents(".hook");
+    var hook_id=$(ledger_hook).attr("id");
 
     if (old_date == selectedDate)
         return;
@@ -85,7 +87,21 @@ function ledgerDateChange(selectedDate,dom_obj)
 // comment}
 function addNewEntryToLedger(entry)
 {
+    var addy="queries.php?func=addEntry"+
+        "&date="+entry.date+
+        "&amt="+entry.amt+
+        "&serial="+entry.serial+
+        "&com="+entry.comment+
+        "&src="+entry.source;
 
+    $.ajax({
+        type:"GET",
+        url:addy,
+        cache:false
+    }).done(function(html_str){
+        $("#"+hook_id).html(html_str);
+        addDatepickers();
+    });
 }
 
 // 0.1.1.1.2

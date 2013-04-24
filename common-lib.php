@@ -68,3 +68,16 @@ function getPriorBalance($db_login,$date)
     return $ret;
 }
 
+// returns an associative array that contains the db login data
+// for now it loads up the hard-coded data, but in the future, there will be a 
+// variable set of data to obtain somehow.
+function getLoginData()
+{
+    return array(
+        "loc"=>"localhost",
+        "usr"=>"moola",
+        "pw"=>"password",
+        "db"=>"moola");
+}
+
+
