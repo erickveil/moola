@@ -14,3 +14,27 @@ web page ledger. I'd like to build functionality on top of that.
 Where I go from there is subject to my free time (lol, "free time!") and
 whim.
 
+setup:
+
+requires a LAMP or WAMP environment.
+-add files to /etc/www/html
+-create mysql user moola, password is password, then create database moola
+(the php is hard coded for this user/password/database for now. Will add
+custom users later maybe).
+-add the tables to moola:
+mysql -u moola -p"password" moola < path/to/base.sql
+
+to fill your database:
+-have a csv file with accounts. Format must be:
+First two lines are headders and skipped.
+fields are in this order:
+date,transaction ammount, check numbers, transaction type, comments
+- run 
+imprt.php path/to/file.csv
+
+If your bank's csv is in a different format, you will have to modify
+import.php to handle it.
+
+to view moola, point your browser to localhost/your_directory_structure/moola.php
+
+
