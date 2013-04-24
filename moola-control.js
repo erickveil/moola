@@ -12,12 +12,6 @@
 $(function()
 {
     addDatepickers();
-    
-    $("[field=ledger_date]").change(function(){
-        //var msg=$(this).attr("value");
-        //alert(msg);
-    });
-    
 });
 
 // 0.1.1
@@ -69,13 +63,13 @@ function ledgerDateChange(selectedDate,dom_obj)
     var old_date=$(dom_obj).attr("value");
 
     var entry=new Object;
-    var entry.serial=$("[field=ledger_serial][id="+id+"]").val();
-    var entry.amt=$("[field=ledger_amount][id="+id+"]").val();
-    var entry.comment=$("[field=ledger_com][id="+id+"]").val();
-    var entry.ptr=id;
-    var entry.date=selectedDate;
+    entry.serial=$("[field=ledger_serial][id="+id+"]").val();
+    entry.amt=$("[field=ledger_amount][id="+id+"]").val();
+    entry.comment=$("[field=ledger_com][id="+id+"]").val();
+    entry.ptr=id;
+    entry.date=selectedDate;
 
-    if (old_date == entry[date])
+    if (old_date == selectedDate)
         return;
 
     addNewEntryToLedger(entry);
