@@ -28,7 +28,7 @@ div.ledger_entry_2{
     float:left;
 }
 
-input.ledger_date{
+input[field="ledger_date"]{
     width:80px;
     border-style:none;
     background-color:inherit;

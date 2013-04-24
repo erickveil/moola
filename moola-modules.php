@@ -140,7 +140,7 @@ function buildLedgerElements($alternate,$row,$bal_class,$balance)
     $html_str="
     <div class='${alternate}' >".
 
-    "<input type='text' class='ledger_date' id=${id} value='".
+    "<input type='text' field='ledger_date' id=${id} value='".
     $row["DATE"]."' />".
     
     "<input type='text' class='ledger_serial' id=${id} value='". 

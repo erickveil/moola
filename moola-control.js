@@ -11,6 +11,12 @@
 $(function()
 {
     addDatepickers();
+    
+    $("[field=ledger_date]").change(function(){
+        var msg=$(this).attr("id");
+        alert(msg);
+    });
+    
 });
 
 // date picker attributes need to be added on each reload of a widget
@@ -58,5 +64,4 @@ function redrawLedger(hook_id)
         addDatepickers();
     });
 }
-
 
