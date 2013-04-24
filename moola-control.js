@@ -93,14 +93,14 @@ function addNewEntryToLedger(entry)
         "&serial="+entry.serial+
         "&com="+entry.comment+
         "&src="+entry.source;
+    alert(addy);
 
     $.ajax({
         type:"GET",
         url:addy,
         cache:false
-    }).done(function(html_str){
-        $("#"+hook_id).html(html_str);
-        addDatepickers();
+    }).done(function(return_val){
+        alert(return_val);
     });
 }
 

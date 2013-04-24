@@ -17,7 +17,7 @@ $func=$_GET['func'];
 switch($func)
 {
 case "addEntry":
-    addEntry($_GET);
+    echo addEntry($_GET);
     break;
 default:
     echo "queries.php unrecognized function parameter.";
@@ -38,17 +38,19 @@ function addEntry($entry)
     $sql="insert into downloads ".
         "(DATE,AMOUNT,SERIAL,COMMENTS,SOURCE) ".
         "values (".
-        $entry['date'].", ".
+        "\"".$entry['date']."\", ".
         $entry['amt'].", ".
-        $entry['serial'].", ".
-        $entry['com'].", ".
-        $entry['src'].");";
+        "\"".$entry['serial']."\", ".
+        "\"".$entry['com']."\", ".
+        "\"".$entry['src']."\");";
 
     $result=$mysqli->query($sql);
-    if($result_obj===false)
+    if($result===false)
     {
         handleError("Insert failed: $sql\n".$mysqli->error,$mysqli);
+        return "query failed";
     }
+    return "all good";
 }
 
 
