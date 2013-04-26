@@ -19,6 +19,9 @@ switch($func)
 case "addEntry":
     echo addEntry($_GET);
     break;
+case "softDeleteEntry":
+    echo softDelete($_GET);
+    break;
 default:
     echo "queries.php unrecognized function parameter.";
     exit();
@@ -27,13 +30,7 @@ default:
 // 0.1.0
 function addEntry($entry)
 {
-    $db_login=getLoginData(); 
-
-    $mysqli=loadMySqli(
-        $db_login["loc"],
-        $db_login["usr"],
-        $db_login["pw"],
-        $db_login["db"]);
+    $mysqli=loadDB();
 
     $sql="insert into downloads ".
         "(DATE,AMOUNT,SERIAL,COMMENTS,SOURCE) ".
@@ -53,4 +50,35 @@ function addEntry($entry)
     return "all good";
 }
 
+// 0.1.1
+function loadDB()
+{
+    $db_login=getLoginData(); 
+
+    $mysqli=loadMySqli(
+        $db_login["loc"],
+        $db_login["usr"],
+        $db_login["pw"],
+        $db_login["db"]);
+
+    return $mysqli;
+}
+
+// 0.2.0
+function softDelete($entry)
+{
+    $mysqli=loadDB();
+
+    $sql="update downloads ".
+        "set DEL = \"".$entry["type"]."\" ".
+        "where PTR = ".$entry["ptr"].";";
+
+    $result=$mysqli->query($sql);
+    if($result===false)
+    {
+        handleError("Insert failed: $sql\n".$mysqli->error,$mysqli);
+        return "query failed";
+    }
+    return "all good";
+}
 

@@ -77,15 +77,13 @@ function ledgerDateChange(selectedDate,dom_obj)
         return;
 
     addNewEntryToLedger(entry);
-    deleteEntryFromLedger(ptr,"edit");
-    redrawLedger(hook_id);
 }
 
 // 0.1.1.1.1
 // used to insert a new entry into the downloads ledger table
 // entry is an object. It should have members {ptr, date, serial, amt,
 // comment}
-function addNewEntryToLedger(entry)
+function addNewEntryToLedger(entry,ptr,hook_id)
 {
     var addy="queries.php?func=addEntry"+
         "&date="+entry.date+
@@ -93,14 +91,14 @@ function addNewEntryToLedger(entry)
         "&serial="+entry.serial+
         "&com="+entry.comment+
         "&src="+entry.source;
-    alert(addy);
+    //alert(addy);
 
     $.ajax({
         type:"GET",
         url:addy,
         cache:false
     }).done(function(return_val){
-        alert(return_val);
+        deleteEntryFromLedger(ptr,"edit",hook_id);
     });
 }
 
@@ -108,9 +106,20 @@ function addNewEntryToLedger(entry)
 // adds a value to the DEL column for the entry at PTR, indicating that it is
 // "deleted" by virtue of its DEL value is not null
 // pass the ptr for the entry and the type of deletion
-function deleteEntryFromLedger(ptr,edit_type)
+function deleteEntryFromLedger(ptr,edit_type,hook_id)
 {
+    var addy="queries.php?func=softDeleteEntry"+
+        "&ptr="+ptr+
+        "&type="+edit_type;
+    //alert(addy);
 
+    $.ajax({
+        type:"GET",
+        url:addy,
+        cache:false
+    }).done(function(return_val){
+        redrawLedger(hook_id);
+    });
 }
 
 // 0.2.0
