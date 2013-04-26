@@ -76,7 +76,7 @@ function ledgerDateChange(selectedDate,dom_obj)
     if (old_date == selectedDate)
         return;
 
-    addNewEntryToLedger(entry);
+    addNewEntryToLedger(entry,id,hook_id);
 }
 
 // 0.1.1.1.1
