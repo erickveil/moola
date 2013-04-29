@@ -12,9 +12,15 @@
 $(function()
 {
     addDatepickers();
+
     $("[field=ledger_com]").change(function(){
         editField("COMMENTS",this);
     });
+
+    $("[field=ledger_serial]").change(function(){
+        editField("SERIAL",this);
+    });
+
 });
 
 // 0.1.1
@@ -64,6 +70,16 @@ function ledgerDateChange(selectedDate,dom_obj)
 {
     var id=$(dom_obj).attr("id");
     var old_date=$(dom_obj).attr("value");
+
+    alert(id+" = "+getSource(id));
+
+    if(getSource(id)!="download")
+    {
+        // This is not a download entry, just edit the field
+
+        // function here..
+        return;
+    }
 
     var entry=new Object;
     entry.serial=$("[field=ledger_serial][id="+id+"]").val();
@@ -123,6 +139,25 @@ function deleteEntryFromLedger(ptr,edit_type,hook_id)
     }).done(function(return_val){
         redrawLedger(hook_id);
     });
+}
+
+// 0.1.1.1.3
+// gets the source type of the downloads table entry by its ptr.
+// This is usualy used to determine if an entry's major field has been edited
+// before.
+// Te request is synchronous, so that you have to wait for the result before you
+// know what to do with it.
+function getSource(ptr)
+{
+    var addy="queries.php?func=getSource&ptr="+ptr;
+
+    // return result asynchronously
+    return $.ajax({
+        type:"GET",
+        url:addy,
+        cache:false,
+        async:false
+    }).responseText;
 }
 
 // 1.1.2

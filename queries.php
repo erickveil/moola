@@ -25,6 +25,10 @@ case "softDeleteEntry":
 case "editEntry":
     echo editEntry($_GET);
     break;
+case "getSource":
+    $ptr=$_GET["ptr"];
+    echo getSource($ptr);
+    break;
 default:
     echo "queries.php unrecognized function parameter.";
     exit();
@@ -105,5 +109,24 @@ function editEntry($entry)
         return "query failed";
     }
     return "all good";
+}
+
+function getSource($ptr)
+{
+    $mysqli=loadDB();
+
+    $sql="select SOURCE from downloads ".
+        "where PTR = ${ptr};";
+
+    $result=$mysqli->query($sql);
+    if($result===false)
+    {
+        handleError("Source query failed: $sql\n".$mysqli->error,$mysqli);
+        return "query failed";
+    }
+
+    // only expectin gone row per ptr
+    $row=$result->fetch_assoc();
+    return $row["SOURCE"];
 }
 
