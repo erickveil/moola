@@ -13,7 +13,7 @@ $(function()
 {
     addDatepickers();
     $("[field=ledger_com]").change(function(){
-        editField("COMMENT",this);
+        editField("COMMENTS",this);
     });
 });
 
@@ -136,11 +136,13 @@ function editField(sql_field, field_dom)
 
     var addy="queries.php?func=editEntry&ptr="+ptr+"&field="+sql_field+"&data="+new_value;
 
+alert(addy);
     $.ajax({
         type:"GET",
         url:addy,
         cache:false
     }).done(function(return_text){
+        alert(return_text);
     });
 
 }
