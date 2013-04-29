@@ -12,6 +12,9 @@
 $(function()
 {
     addDatepickers();
+    $("[field=ledger_com]").change(function(){
+        editField("COMMENT",this);
+    });
 });
 
 // 0.1.1
@@ -122,6 +125,26 @@ function deleteEntryFromLedger(ptr,edit_type,hook_id)
     });
 }
 
+// 1.1.2
+// calls an update querry on the sql_field passed in the downloads table.
+// the field_dom is the dom object ("this") of the changed field. It's id should
+// match it's ptr entry in the downloads table.
+function editField(sql_field, field_dom)
+{
+    var new_value=$(field_dom).val();
+    var ptr=$(field_dom).attr("id");
+
+    var addy="queries.php?func=editEntry&ptr="+ptr+"&field="+sql_field+"&data="+new_value;
+
+    $.ajax({
+        type:"GET",
+        url:addy,
+        cache:false
+    }).done(function(return_text){
+    });
+
+}
+
 // 0.2.0
 // pass the name of this function as a string to the php function,
 // "drawDateRange()" This establishes that the date range selector is a
@@ -143,4 +166,5 @@ function redrawLedger(hook_id)
         addDatepickers();
     });
 }
+
 

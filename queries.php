@@ -22,6 +22,9 @@ case "addEntry":
 case "softDeleteEntry":
     echo softDelete($_GET);
     break;
+case "editEntry":
+    echo editEntry($_GET);
+    break;
 default:
     echo "queries.php unrecognized function parameter.";
     exit();
@@ -76,7 +79,29 @@ function softDelete($entry)
     $result=$mysqli->query($sql);
     if($result===false)
     {
-        handleError("Insert failed: $sql\n".$mysqli->error,$mysqli);
+        handleError("Soft Delete failed: $sql\n".$mysqli->error,$mysqli);
+        return "query failed";
+    }
+    return "all good";
+}
+
+// 0.3.0
+function editEntry($entry)
+{
+    $ptr=$entry["ptr"];
+    $field=$entry["field"];
+    $data=$entry["data"];
+
+    $mysqli=loadDB();
+
+    $sql="update downloads ".
+        "set ${field} = \"${data}\" ".
+        "where PTR = ${ptr};";
+
+    $result=$mysqli->query($sql);
+    if($result===false)
+    {
+        handleError("Update failed: $sql\n".$mysqli->error,$mysqli);
         return "query failed";
     }
     return "all good";
