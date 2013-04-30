@@ -71,13 +71,12 @@ function ledgerDateChange(selectedDate,dom_obj)
     var id=$(dom_obj).attr("id");
     var old_date=$(dom_obj).attr("value");
 
-    alert(id+" = "+getSource(id));
+    //alert(id+" = "+getSource(id));
 
     if(getSource(id)!="download")
     {
         // This is not a download entry, just edit the field
-
-        // function here..
+        editField("DATE", dom_obj);
         return;
     }
 
@@ -171,13 +170,11 @@ function editField(sql_field, field_dom)
 
     var addy="queries.php?func=editEntry&ptr="+ptr+"&field="+sql_field+"&data="+new_value;
 
-alert(addy);
     $.ajax({
         type:"GET",
         url:addy,
         cache:false
     }).done(function(return_text){
-        alert(return_text);
     });
 
 }
