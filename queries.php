@@ -54,7 +54,8 @@ function addEntry($entry)
         handleError("Insert failed: $sql\n".$mysqli->error,$mysqli);
         return "query failed";
     }
-    return "all good";
+    $new_ptr=$mysqli->insert_id;
+    return $new_ptr;
 }
 
 // 0.1.1

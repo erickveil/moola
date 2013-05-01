@@ -116,7 +116,8 @@ function addNewEntryToLedger(entry,ptr,hook_id)
         url:addy,
         cache:false
     }).done(function(return_val){
-        deleteEntryFromLedger(ptr,"edit",hook_id);
+        var focus_selector="[id="+return_val+"][field=ledger_date]";
+        deleteEntryFromLedger(ptr,"edit",hook_id,focus_selector);
     });
 }
 
@@ -124,7 +125,8 @@ function addNewEntryToLedger(entry,ptr,hook_id)
 // adds a value to the DEL column for the entry at PTR, indicating that it is
 // "deleted" by virtue of its DEL value is not null
 // pass the ptr for the entry and the type of deletion
-function deleteEntryFromLedger(ptr,edit_type,hook_id)
+// focus_selector is the selectorof the element to restore focus to afterwords
+function deleteEntryFromLedger(ptr,edit_type,hook_id,focus_selector)
 {
     var addy="queries.php?func=softDeleteEntry"+
         "&ptr="+ptr+
@@ -136,7 +138,7 @@ function deleteEntryFromLedger(ptr,edit_type,hook_id)
         url:addy,
         cache:false
     }).done(function(return_val){
-        redrawLedger(hook_id);
+        redrawLedger(hook_id,focus_selector);
     });
 }
 
@@ -184,7 +186,8 @@ function editField(sql_field, field_dom)
 // "drawDateRange()" This establishes that the date range selector is a
 // sub-widget of the Ledger, and by selecting a range, and clicking the
 // submission button, the ledger will be re-drawn with the new date range.
-function redrawLedger(hook_id)
+// focus selector is the item we want to move focus to when we are done.
+function redrawLedger(hook_id,focus_selector)
 {
     var min_date=$("#min").val();
     var max_date=$("#max").val();
@@ -198,6 +201,10 @@ function redrawLedger(hook_id)
     }).done(function(html_str){
         $("#"+hook_id).html(html_str);
         addDatepickers();
+        alert(focus_selector);
+        // what if the entry is out of the date range?
+        // what if the selector does not exist?
+        $(focus_selector).focus();
     });
 }
 
