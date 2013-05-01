@@ -68,7 +68,7 @@ function importData($filerows,$skip,$mysqli)
         $fields=fixEmptyComments($fields);
 
         $sql="insert into downloads".
-            " (DATE,AMOUNT,SERIAL,DESCRIPTION,COMMENTS)".
+            " (DATE,AMOUNT,SERIAL,DESCRIPTION,COMMENTS,SOURCE)".
             " values (";
 
         $d=", ";
@@ -80,7 +80,7 @@ function importData($filerows,$skip,$mysqli)
             }
             $sql.=($fields[$i].$d);
         }
-        $sql.=")";
+        $sql.=",\"download\")";
 
         echo "executing: ${sql}\n";
         if($mysqli->query($sql)===true)
