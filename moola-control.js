@@ -207,7 +207,7 @@ function redrawLedger(hook_id,focus_selector)
         $(focus_selector).blur();
 
         addDatepickers();
-        alert(focus_selector);
+        //alert(focus_selector);
     });
 }
 

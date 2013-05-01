@@ -94,6 +94,7 @@ function asCurrency($num)
 // also provide a default range object ([min]=a, [max]=b)
 function drawDateRange($function,$default,$hook_id)
 {
+    $post_draw_focus="\"\"";
     $html_str="<div class='date_ranger'>";
 
     $html_str.="
@@ -116,7 +117,7 @@ function drawDateRange($function,$default,$hook_id)
         <input 
             type='button' 
             id='get_range' 
-            onclick='${function}(\"${hook_id}\");' 
+            onclick='${function}(\"${hook_id}\",${post_draw_focus});' 
             value='Select Range'
         />
     ";
