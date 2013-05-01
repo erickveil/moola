@@ -37,13 +37,17 @@ default:
 // 0.1.0
 function addEntry($entry)
 {
+    $converted_amt=dolarsToDouble($entry['amt']);
+    if(!is_numeric($converted_amt)
+        return;
+
     $mysqli=loadDB();
 
     $sql="insert into downloads ".
         "(DATE,AMOUNT,SERIAL,COMMENTS,SOURCE) ".
         "values (".
         "\"".$entry['date']."\", ".
-        $entry['amt'].", ".
+        $converted_amt.", ".
         "\"".$entry['serial']."\", ".
         "\"".$entry['com']."\", ".
         "\"".$entry['src']."\");";
@@ -70,6 +74,13 @@ function loadDB()
         $db_login["db"]);
 
     return $mysqli;
+}
+
+function dolarsToDouble($dollar_formatted)
+{
+    $search=array(" ","$",",");
+    $formatted=str_replace($search,"",$dollar_formatted);
+    return $formatted;
 }
 
 // 0.2.0
