@@ -200,11 +200,14 @@ function redrawLedger(hook_id,focus_selector)
         cache:false
     }).done(function(html_str){
         $("#"+hook_id).html(html_str);
-        addDatepickers();
-        alert(focus_selector);
+
         // what if the entry is out of the date range?
         // what if the selector does not exist?
         $(focus_selector).focus();
+        $(focus_selector).blur();
+
+        addDatepickers();
+        alert(focus_selector);
     });
 }
 
