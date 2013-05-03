@@ -64,6 +64,7 @@ function importData($filerows,$skip,$mysqli)
 
         $fields=explode(",",$row);
         $fields[0]=fixDate($fields[0]);
+        $fields[1]=fixAmount($fields[1]);
         $fields=fixQuotes($fields);
         $fields=fixEmptyComments($fields);
 
@@ -133,5 +134,16 @@ function fixEmptyComments($fields)
         }
     }
     return $fields;
+}
+
+// 0.2.4
+// Amount should come in as currency, no dollar sign, a negative sign for 
+// values under zero, rounded to the cent, with a decimal point. Whole dollars 
+// must end in ".00"
+// returns cash value as an integer, representing total cents value of the 
+// input
+function fixAmount($amount)
+{
+    return str_replace(".","",$amount);    
 }
 
