@@ -81,7 +81,7 @@ function drawLedger($db_login,$balance,$range,$hook_id)
 // 0.1.1
 function asCurrency($num)
 {
-    return number_format($num,2,".",",");
+    return number_format(($num/100),2,".",",");
 }
 
 // 0.1.2
@@ -133,7 +133,7 @@ function drawDateRange($function,$default,$hook_id)
 // is the sql query object for the row that the data comes from. $bal_class 
 // is the class for the balance field, which depends on if it's positive or 
 // negative, so that it receives different styles for each. $balance is the 
-// balance value itself.
+// balance value itself in cents.
 function buildLedgerElements($alternate,$row,$bal_class,$balance)
 {
     $id=$row["PTR"];
