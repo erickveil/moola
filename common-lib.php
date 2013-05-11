@@ -80,4 +80,19 @@ function getLoginData()
         "db"=>"moola");
 }
 
+// 0.2.4
+// Amount should come in as currency, no dollar sign, a negative sign for 
+// values under zero, rounded to the cent, with a decimal point. Whole dollars 
+// that do not end in .00 are handled.
+// returns cash value as an integer, representing total cents value of the 
+// input
+function fixAmount($amount)
+{
+    $split_amt=explode(".",$amount);
+    if($split_amt==$ammount)
+    {
+        $ammount.="00";
+    }
+    return str_replace(".","",$amount);    
+}
 

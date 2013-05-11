@@ -25,7 +25,7 @@ $(function()
         alert($(this).val()+" vs "+$(this).attr('value'));
         // this is temporary. We want to preserve the downloaded amount, so
         // will handle this like ledger_date
-        editField("AMOUNT",this);
+        // editField("AMOUNT",this);
     });
 
 });

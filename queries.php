@@ -37,9 +37,7 @@ default:
 // 0.1.0
 function addEntry($entry)
 {
-    $converted_amt=dolarsToDouble($entry['amt']);
-    if(!is_numeric($converted_amt)
-        return;
+    $converted_amt=fixAmount($entry['amt']);
 
     $mysqli=loadDB();
 
@@ -107,6 +105,9 @@ function editEntry($entry)
     $ptr=$entry["ptr"];
     $field=$entry["field"];
     $data=$entry["data"];
+
+    if($field=="AMMOUNT")
+        $data=fixAmount($data);
 
     $mysqli=loadDB();
 
