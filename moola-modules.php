@@ -138,6 +138,12 @@ function buildLedgerElements($alternate,$row,$bal_class,$balance)
 {
     $id=$row["PTR"];
 
+    // doesn't always catch the quotes, but it helps
+    $src_quot=array("\"","'","\x98","\x99","\x8c","\x9d");
+    $print_quot=array("&quot;","&apos;","&apos;","&apos;","&quot;","&quot;");
+    $row["SERIAL"]=str_replace($src_quot,$print_quot,$row["SERIAL"]);
+    $row["COMMENTS"]=str_replace($src_quot,$print_quot,$row["COMMENTS"]);
+
     $html_str="
     <div class='${alternate}' >".
 
