@@ -22,7 +22,7 @@ $(function()
     });
 
     $("[field=ledger_amount]").change(function(){
-        alert($(this).val()+" vs "+$(this).attr('value'));
+        // alert($(this).val()+" vs "+$(this).attr('value'));
         // this is temporary. We want to preserve the downloaded amount, so
         // will handle this like ledger_date
         // editField("AMOUNT",this);
@@ -62,7 +62,7 @@ function addDatepickers()
         changeYear: false,
         onClose: function(selectedDate){
             var id=$(this).attr("id");
-            ledgerDateChange(selectedDate,this);
+            ledgerPrimaryFieldChange(selectedDate,this,"DATE");
         }
     });
 }
@@ -73,17 +73,17 @@ function addDatepickers()
 // then insert a new entry into the table. This will allow restoring edited
 // items to their downloaded state and also help prevent downloading
 // duplicate entries, even after editing.
-function ledgerDateChange(selectedDate,dom_obj)
+function ledgerPrimaryFieldChange(new_val,dom_obj,sql_field)
 {
     var id=$(dom_obj).attr("id");
-    var old_date=$(dom_obj).attr("value");
+    var old_val=$(dom_obj).attr("value");
 
     //alert(id+" = "+getSource(id));
 
     if(getSource(id)!="download")
     {
         // This is not a download entry, just edit the field
-        editField("DATE", dom_obj);
+        editField(sql_field, dom_obj);
         return;
     }
 
@@ -92,13 +92,13 @@ function ledgerDateChange(selectedDate,dom_obj)
     entry.amt=$("[field=ledger_amount][id="+id+"]").val();
     entry.comment=$("[field=ledger_com][id="+id+"]").val();
     entry.ptr=id;
-    entry.date=selectedDate;
+    entry.date=$("[field=ledger_date][id="+id+"]").val();
     entry.source="edit";
 
     var ledger_hook=$(dom_obj).parents(".hook");
     var hook_id=$(ledger_hook).attr("id");
 
-    if (old_date == selectedDate)
+    if (old_val== new_val)
         return;
 
     addNewEntryToLedger(entry,id,hook_id);
