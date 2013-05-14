@@ -22,6 +22,8 @@ $(function()
     });
 
     $("[field=ledger_amount]").change(function(){
+        var new_amt=$(this).val();
+        ledgerPrimaryFieldChange(new_amt,this,"AMOUNT");
         // alert($(this).val()+" vs "+$(this).attr('value'));
         // this is temporary. We want to preserve the downloaded amount, so
         // will handle this like ledger_date
