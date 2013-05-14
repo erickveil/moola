@@ -43,8 +43,8 @@ function addEntry($entry)
 
     // these entries have not received any sort of validation or massaging 
     // before this point and come from user input.
-    $entry['serial']=$mysqli->real_escape_string($enry['serial']);
-    $entry['com']=$mysqli->real_escape_string($enry['com']);
+    $entry['serial']=$mysqli->real_escape_string($entry['serial']);
+    $entry['com']=$mysqli->real_escape_string($entry['com']);
 
     $sql="insert into downloads ".
         "(DATE,AMOUNT,SERIAL,COMMENTS,SOURCE) ".
@@ -111,12 +111,12 @@ function editEntry($entry)
     $field=$entry["field"];
     $data=$entry["data"];
 
-    $data=$mysqli->real_escape_string($data);
-
-    if($field=="AMMOUNT")
+    if($field=="AMOUNT")
         $data=fixAmount($data);
 
     $mysqli=loadDB();
+
+    $data=$mysqli->real_escape_string($data);
 
     $sql="update downloads ".
         "set ${field} = \"${data}\" ".

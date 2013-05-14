@@ -89,7 +89,7 @@ function getLoginData()
 function fixAmount($amount)
 {
     $split_amt=explode(".",$amount);
-    if($split_amt==$ammount)
+    if($split_amt[0]==$amount)
     {
         $ammount.="00";
     }

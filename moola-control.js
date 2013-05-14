@@ -80,11 +80,12 @@ function ledgerPrimaryFieldChange(new_val,dom_obj,sql_field)
     var id=$(dom_obj).attr("id");
     var old_val=$(dom_obj).attr("value");
 
-    //alert(id+" = "+getSource(id));
+//alert(id+" = "+getSource(id));
 
     if(getSource(id)!="download")
     {
         // This is not a download entry, just edit the field
+//alert(sql_field+"\n"+dom_obj);
         editField(sql_field, dom_obj);
         return;
     }
