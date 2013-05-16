@@ -69,6 +69,12 @@ function importData($filerows,$skip,$mysqli)
         $fields=fixQuotes($fields);
         $fields=fixEmptyComments($fields);
 
+        if(isDuplicate($fields,$mysqli))
+        {
+            echo "Duplicate found. Next.\n";
+            continue;
+        }
+
         $sql="insert into downloads".
             " (DATE,AMOUNT,SERIAL,DESCRIPTION,COMMENTS,SOURCE)".
             " values (";
@@ -93,7 +99,6 @@ function importData($filerows,$skip,$mysqli)
         {
             handleError($mysqli->error,$mysqli);
         }
-
     }
 }
 
@@ -135,5 +140,33 @@ function fixEmptyComments($fields)
         }
     }
     return $fields;
+}
+
+// 0.2.4
+function isDuplicate($fields,$mysqli)
+{
+    $date=$fields[0];
+    $amt=$fields[1];
+
+    $sql="select DATE, AMOUNT from downloads where SOURCE = \"download\"";
+    $result_obj=$mysqli->query($sql);
+
+    if($result_obj===false)
+    {
+        handleError("Query failed: $sql\n".$mysqli->error,$mysqli);
+    }
+
+    while($row=$result_obj->fetch_assoc())
+    {
+        echo $row["DATE"]." vs ".$date." and ".$row["AMOUNT"]." vs ".$amt."\n";
+        if("'".$row["DATE"]."'"=="$date" && $row["AMOUNT"]==$amt)
+        {
+            $result_obj->free();
+            return true;
+        }
+    }
+    $result_obj->free();
+    
+    return false;
 }
 
