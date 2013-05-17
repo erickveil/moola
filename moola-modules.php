@@ -53,7 +53,7 @@ function drawLedger($db_login,$balance,$range,$hook_id)
 
     // build ledger string
     $html_str="
-        <div class='ledger_widget' > 
+        <div class='ledger_widget' form='widget' > 
     ";
 
     $html_str.=$date_range;
@@ -164,6 +164,18 @@ function buildLedgerElements($alternate,$row,$bal_class,$balance)
     $row["COMMENTS"]."' />".
 
     "</div>";
+
+    return $html_str;
+}
+
+// 0.2
+function drawControls()
+{
+    $html_str="<div class='control_widget' form='widget' >"; 
+
+    $html_str.="<input type='button' value='Import CSV' />";
+
+    $html_str.="</div>";
 
     return $html_str;
 }

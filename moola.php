@@ -75,9 +75,13 @@ function drawHTMLBody()
     $start_bal=getPriorBalance($db_login,$range["min"]);
     
     echo "<body>";
+
+    echo drawControls();
+
     echo "<div class='hook' id='${hook_id}'>";
     echo drawLedger($db_login,$start_bal,$range,$hook_id);
     echo "<div>";
+
     echo "</body>";
 }
 
