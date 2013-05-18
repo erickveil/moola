@@ -13,15 +13,32 @@
 // jquery scripts are all referenced here so I only have to change them in one 
 // place just reference these values for script includes.
 
-$jquery="jquery-1.9.1.min.js";
-$jquery_ui_path="jquery-ui-1.10.2/ui/";
-$jquery_ui="${jquery_ui_path}jquery-ui.js";
-$jqui_core="${jquery_ui_path}jquery.ui.core.js";
-$jqui_widget="${jquery_ui_path}jquery.ui.widget.js";
-$jqui_date="${jquery_ui_path}jquery.ui.datepicker.js";
 
-$jqui_css_path="jquery-ui-1.10.2/themes/base/";
-$jqui_css_base=$jqui_css_path."jquery.ui.all.css";
+function drawScripts()
+{
+    $jquery_ui_path="jquery-ui-1.10.2/ui/";
+    
+    $scriptlist=array(
+        "jquery-1.9.1.min.js",
+        $jquery_ui_path."jquery-ui.js",
+        $jquery_ui_path."jquery.ui.core.js",
+        $jquery_ui_path."jquery.ui.widget.js",
+        $jquery_ui_path."jquery.ui.datepicker.js",
+        $jquery_ui_path."jquery.ui.mouse.js",
+        $jquery_ui_path."jquery.ui.draggable.js",
+        $jquery_ui_path."jquery.ui.position.js",
+        $jquery_ui_path."jquery.ui.resizable.js",
+        $jquery_ui_path."jquery.ui.button.js",
+        $jquery_ui_path."jquery.ui.dialog.js",
+        "moola-control.js"
+    );
+
+    foreach($scriptlist as $script)
+    {
+        echo "<script src='".$script."' ></script>";
+        echo "\n";
+    }
+}
 
 function handleError($err_string,$mysqli)
 {

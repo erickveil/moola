@@ -30,6 +30,9 @@ $(function()
         // editField("AMOUNT",this);
     });
 
+    $("[button=import]").click(function(){
+        alert("click");
+    });
 });
 
 // 0.1.1
@@ -188,7 +191,6 @@ function editField(sql_field, field_dom)
         cache:false
     }).done(function(return_text){
     });
-
 }
 
 // 0.2.0
@@ -221,4 +223,5 @@ function redrawLedger(hook_id,focus_selector)
     });
 }
 
+// 0.3.0
 

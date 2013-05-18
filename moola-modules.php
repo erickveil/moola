@@ -173,7 +173,11 @@ function drawControls()
 {
     $html_str="<div class='control_widget' form='widget' >"; 
 
-    $html_str.="<input type='button' value='Import CSV' />";
+    $html_str.="<input ". 
+            "type='button' ".
+            "value='Import CSV' ".
+            "button='import' ".
+        "/>";
 
     $html_str.="</div>";
 

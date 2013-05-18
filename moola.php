@@ -21,40 +21,25 @@ drawHTMLFoot();
 // 0.1
 function drawHTMLHead()
 {
-    // script paths defines in common-lib.php
-    GLOBAL $jquery;
-    GLOBAL $jquery_ui;
-    GLOBAL $jqui_core;
-    GLOBAL $jqui_widget;
-    GLOBAL $jqui_date;
-
     echo "
         <html>
         <head>
     ";
 
     drawCSS();
-
-    echo"
-        <script src='${jquery}' ></script>
-        <script src='${jquery_ui}' ></script>
-        <script src='${jqui_core}' ></script>
-        <script src='${jqui_widget}' ></script>
-        <script src='${jqui_date}' ></script>
-        <script src='moola-control.js' ></script>
-    ";
+    drawScripts();
 
     echo "</head>";
-
 }
 
 // 0.1.1
 function drawCSS()
 {
-    GLOBAL $jqui_css_base;
+    $jqui_css_path="jquery-ui-1.10.2/themes/base/";
+    $jqui_css_base=$jqui_css_path."jquery.ui.all.css";
 
-    echo "<link rel='stylesheet' type='text/css' href='styles.css' />";
-    echo "<link rel='stylesheet' type='text/css' href='${jqui_css_base}' />";
+    echo "<link rel='stylesheet' type='text/css' href='styles.css' />
+        <link rel='stylesheet' type='text/css' href='${jqui_css_base}' />";
 }
 
 // 0.2
