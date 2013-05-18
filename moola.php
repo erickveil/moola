@@ -61,6 +61,8 @@ function drawHTMLBody()
     
     echo "<body>";
 
+    drawImportDialog();
+
     echo drawControls();
 
     echo "<div class='hook' id='${hook_id}'>";

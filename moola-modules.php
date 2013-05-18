@@ -184,3 +184,9 @@ function drawControls()
     return $html_str;
 }
 
+// 0.3
+function drawImportDialog()
+{
+    echo "<div id='import' >Hello World</div>";
+}
+
