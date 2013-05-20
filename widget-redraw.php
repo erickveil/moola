@@ -15,6 +15,8 @@
 //
 
 include "moola-modules.php";
+include "common-lib.php";
+
 $func=$_GET['func'];
 
 switch($func)
@@ -26,6 +28,7 @@ switch($func)
         break;
     case "fillImportDialog":
         $state=$_GET['state'];
+        //$file=$_GET['file'];
         echo drawImportDialogStateContent($state);
         break;
     default:
@@ -62,7 +65,8 @@ function drawImportDialogStateContent($state)
     {
         if(validateUploadedFile()==true)
         {
-            if(importUploadedData()==true)
+            // where dows FILE come from?
+            if(importUploadedData($_FILE)==true)
             {
                 $html_str="The import has completed.";
             }
@@ -88,14 +92,15 @@ function drawImportDialogStateContent($state)
 
 // 0.2.1
 // This validation could be a little better
-function validateUploadedFile()
+function validateUploadedFile($_FILE,$_POST)
 {
     return true;
 }
 
 // 0.2.2
-function importUploadedData()
+function importUploadedData($_FILE)
 {
-    return true;
+    $filename=$_FILE['datafile']['name'];
+    return runImport($filename);
 }
 

@@ -11,61 +11,57 @@
 // 2013-05-20 Commented echo feedback in anticipation of script-level 
 // invocation. 
 // Modified script to run quietly, and able to be called on cli or uri.
+// Modified it again to make it a library only
 //
 // All commented code in this script expires on 2013-07-20
 // 
 
 include "common-lib.php";
 
-$login=getLoginData();
-
-$location=$login["loc"];
-$user=$login["usr"];
-$password=$login["pw"];
-$database=$login["dw"];
-
-$mysqli=loadMySqli($location,$user,$password,$database)
-
-// the top two rows of First Northern CSV files are a title, and col heads.
-$skip=2;
-
-// parameter determines if command line or get 
-if(isset($_GET['file']))
+/*
+if(isset($argv[1]))
 {
-    $file=$_GET['file'];
-    $filename="upload/${file}";
-}
-else
-{
-    if(!isset($argv[1]))
-    {
-        handleError("There is no file argument provided.",$mysqli);
-    }
-    // one parameter should be path to csv:
     $filename=$argv[1];
 }
+ */
 
-$valid=explode(".",$filename);
-if($valid[count($valid)-1]!="csv")
+// 0.1.0
+function runImport($filename)
 {
-    $type=mime_content_type($filename);
-    handleError("The import file is not csv. Mimetype: ${type}",$mysqli);
+    $login=getLoginData();
+
+    $location=$login["loc"];
+    $user=$login["usr"];
+    $password=$login["pw"];
+    $database=$login["dw"];
+
+    $mysqli=loadMySqli($location,$user,$password,$database)
+
+    // the top two rows of First Northern CSV files are a title, and col heads.
+    $skip=2;
+    
+    $valid=explode(".",$filename);
+    if($valid[count($valid)-1]!="csv")
+    {
+        $type=mime_content_type($filename);
+        handleError("The import file is not csv. Mimetype: ${type}",$mysqli);
+    }
+
+    $flags=FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES;
+
+    $filerows=file($filename,$flags);
+    if($filerows===false)
+    {
+        handleError("The argument is not a valid file.",$mysqli);
+    }
+
+    importData($filerows,$skip,$mysqli);
+
+    //end
+    $mysqli->close();
+
+    return true;
 }
-
-$flags=FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES;
-
-$filerows=file($filename,$flags);
-if($filerows===false)
-{
-    handleError("The argument is not a valid file.",$mysqli);
-}
-
-importData($filerows,$skip,$mysqli);
-
-//end
-$mysqli->close();
-
-echo true;
 
 // 0.2.0
 // pass an array of rowws, and the number from the top to skip
