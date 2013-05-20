@@ -53,7 +53,7 @@ function loadMySqli($location,$user,$password,$database)
     if(mysqli_connect_errno())
      {
          $sql_err=mysqli_connect_error();
-         handleError("drawLedger module failed to connect to database:
+         handleError("module failed to connect to database:
          $sql_err",$mysqli);
      }
      return $mysqli;

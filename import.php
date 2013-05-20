@@ -8,27 +8,42 @@
 //
 // Converts csv files of a specific format into an sql table.
 //
+// 2013-05-20 Commented echo feedback in anticipation of script-level 
+// invocation. 
+// Modified script to run quietly, and able to be called on cli or uri.
+//
+// All commented code in this script expires on 2013-07-20
 // 
 
 include "common-lib.php";
 
-// the log-in information might later be configurable
-$location="localhost";
-$user="moola";
-$password="password";
-$database="moola";
-$mysqli=mysqli_connect($location,$user,$password,$database);
-if(mysqli_connect_errno())
-{
-    $sql_err=mysqli_connect_error();
-    handleError("Failed to connect to database: $sql_err",$mysqli);
-}
+$login=getLoginData();
+
+$location=$login["loc"];
+$user=$login["usr"];
+$password=$login["pw"];
+$database=$login["dw"];
+
+$mysqli=loadMySqli($location,$user,$password,$database)
 
 // the top two rows of First Northern CSV files are a title, and col heads.
 $skip=2;
 
-// one parameter should be path to csv:
-$filename=$argv[1];
+// parameter determines if command line or get 
+if(isset($_GET['file']))
+{
+    $file=$_GET['file'];
+    $filename="upload/${file}";
+}
+else
+{
+    if(!isset($argv[1]))
+    {
+        handleError("There is no file argument provided.",$mysqli);
+    }
+    // one parameter should be path to csv:
+    $filename=$argv[1];
+}
 
 $valid=explode(".",$filename);
 if($valid[count($valid)-1]!="csv")
@@ -49,6 +64,8 @@ importData($filerows,$skip,$mysqli);
 
 //end
 $mysqli->close();
+
+echo true;
 
 // 0.2.0
 // pass an array of rowws, and the number from the top to skip
@@ -71,7 +88,7 @@ function importData($filerows,$skip,$mysqli)
 
         if(isDuplicate($fields,$mysqli))
         {
-            echo "Duplicate found. Next.\n";
+            //echo "Duplicate found. Next.\n";
             continue;
         }
 
@@ -90,10 +107,10 @@ function importData($filerows,$skip,$mysqli)
         }
         $sql.=",\"download\")";
 
-        echo "executing: ${sql}\n";
+        //echo "executing: ${sql}\n";
         if($mysqli->query($sql)===true)
         {
-            echo "insert success.\n";
+            //echo "insert success.\n";
         }
         else
         {
@@ -158,7 +175,7 @@ function isDuplicate($fields,$mysqli)
 
     while($row=$result_obj->fetch_assoc())
     {
-        echo $row["DATE"]." vs ".$date." and ".$row["AMOUNT"]." vs ".$amt."\n";
+        //echo $row["DATE"]." vs ".$date." and ".$row["AMOUNT"]." vs ".$amt."\n";
         if("'".$row["DATE"]."'"=="$date" && $row["AMOUNT"]==$amt)
         {
             $result_obj->free();
