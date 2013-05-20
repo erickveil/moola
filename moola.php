@@ -14,7 +14,7 @@
 include "moola-modules.php";
 
 drawHTMLHead();
-drawHTMLBody();
+drawHTMLBody($_POST);
 drawHTMLFoot();
 
 
@@ -43,7 +43,7 @@ function drawCSS()
 }
 
 // 0.2
-function drawHTMLBody()
+function drawHTMLBody($_POST)
 {
     $location="localhost";
     $user="moola";
@@ -61,7 +61,9 @@ function drawHTMLBody()
     
     echo "<body>";
 
-    drawImportDialog();
+    echo drawState($_POST);
+
+    echo drawImportDialog();
 
     echo drawControls();
 
@@ -80,6 +82,25 @@ function getDefaultDateRange()
     $range=array("min"=>$lastyear, "max"=>$tomorrow);
 // print_r($range);
     return $range;
+}
+
+// 0.2.2
+function drawState($_POST)
+{
+print_r($_POST);
+
+    $state='';
+    if(isset($_POST['state']))
+    {
+        $state=$_POST['state'];
+    }
+    else
+    {
+        $state="base";
+    }
+    $html_str="<input type='hidden' id='state' value='$state'>";
+
+    return $html_str;
 }
 
 // 0.3

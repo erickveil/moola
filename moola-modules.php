@@ -187,6 +187,20 @@ function drawControls()
 // 0.3
 function drawImportDialog()
 {
-    echo "<div id='import' >Hello World</div>";
+    $html_str= "<div id='import' ></div>";
+    return $html_str;
+}
+
+// 0.4
+function drawImportForm()
+{
+    $html_str="<form enctype='multipart/form-data' action='' method='POST' >";
+    $html_str.="<input type='hidden' name='MAX_FILE_SIZE' value='30000' />";
+    $html_str.="<input type='hidden' name='state' value='csv_upload' />";
+    $html_str.="<input name='datafile' type='file' />";
+    $html_str.="<input type='submit' value='Load File' />";
+    $html_str.="</form>";
+
+    return $html_str;
 }
 

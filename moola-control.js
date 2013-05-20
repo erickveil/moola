@@ -34,6 +34,8 @@ $(function()
     $("[button=import]").click(function(){
         $("#import").dialog("open");
     });
+
+    fillImportDialog($("#import"));
 });
 
 // 0.1.1
@@ -173,6 +175,35 @@ function getSource(ptr)
         cache:false,
         async:false
     }).responseText;
+}
+
+// 0.1.2
+function fillImportDialog(hook_obj)
+{
+    var state=$("#state").attr("value");
+
+    if(state=="csv_upload")
+    {
+        $("#import").dialog({
+            autoOpen:true
+        });
+    }
+
+    var addy="widget-redraw.php?func=fillImportDialog&state="+state;
+
+    $.ajax({
+        type:"GET",
+        url:addy,
+        cache:false
+    }).done(function(return_text){
+        $(hook_obj).html(return_text);
+    });
+}
+
+// 0.1.2.1
+function warn(text)
+{
+    alert(text);
 }
 
 // 1.1.2

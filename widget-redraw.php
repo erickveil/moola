@@ -24,6 +24,10 @@ switch($func)
         $hook_id=$_GET['hook'];
         echo redrawLedger($range,$hook_id);
         break;
+    case "fillImportDialog":
+        $state=$_GET['state'];
+        echo drawImportDialogStateContent($state);
+        break;
     default:
         echo "unrecognized widget-redraw function.";
         break;
@@ -45,3 +49,24 @@ function redrawLedger($range,$hook_id)
 
     echo drawLedger($db_login,$start_bal,$range,$hook_id);
 }
+
+// 0.2
+function drawImportDialogStateContent($state)
+{
+    $html_str="";
+    if($state=="base")
+    {
+        $html_str=drawImportForm();
+    }
+    else if ($state=="csv_upload")
+    {
+        $html_str="Insert uploading string here.";
+    }
+    else
+    {
+        $html_str.="unrecognized page state.";
+    }
+
+    return $html_str;
+}
+
