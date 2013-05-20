@@ -60,7 +60,23 @@ function drawImportDialogStateContent($state)
     }
     else if ($state=="csv_upload")
     {
-        $html_str="Insert uploading string here.";
+        if(validateUploadedFile()==true)
+        {
+            if(importUploadedData()==true)
+            {
+                $html_str="The import has completed.";
+            }
+            else
+            {
+                // this could use some better feedback.
+                $html_str="The data import failed.";
+            }
+        }
+        else
+        {
+            // This could use some better feedback about what failed
+            $html_str="Im sorry, that file load totaly failed.";
+        }
     }
     else
     {
@@ -68,5 +84,18 @@ function drawImportDialogStateContent($state)
     }
 
     return $html_str;
+}
+
+// 0.2.1
+// This validation could be a little better
+function validateUploadedFile()
+{
+    return true;
+}
+
+// 0.2.2
+function importUploadedData()
+{
+    return true;
 }
 
