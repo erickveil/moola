@@ -87,18 +87,9 @@ function getDefaultDateRange()
 // 0.2.2
 function drawState($_POST)
 {
-print_r($_POST);
-
     $state='';
-    if(isset($_POST['state']))
-    {
-        $state=$_POST['state'];
-    }
-    else
-    {
-        $state="base";
-    }
-    $html_str="<input type='hidden' id='state' value='$state'>";
+
+    $html_str="<input type='hidden' id='state' value='${state}'>";
 
     return $html_str;
 }

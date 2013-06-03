@@ -26,16 +26,23 @@ $(function()
         ledgerPrimaryFieldChange(new_amt,this,"AMOUNT");
     });
 
+    // draw import dialog box
     $("#import").dialog({
         autoOpen:false,
         modal:true    
     });
 
     $("[button=import]").click(function(){
+        fillImportDialog($("#import"));
         $("#import").dialog("open");
     });
 
-    fillImportDialog($("#import"));
+    // handle import dialog onclick
+    $("#load_csv").click(function(){
+
+    });
+
+
 });
 
 /*
@@ -182,15 +189,6 @@ function getSource(ptr)
 // 0.1.2
 function fillImportDialog(hook_obj)
 {
-    var state=$("#state").attr("value");
-
-    if(state=="csv_upload")
-    {
-        $("#import").dialog({
-            autoOpen:true
-        });
-    }
-
     var addy="widget-redraw.php?func=fillImportDialog&state="+state;
 
     $.ajax({

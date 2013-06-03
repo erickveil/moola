@@ -27,9 +27,7 @@ switch($func)
         echo redrawLedger($range,$hook_id);
         break;
     case "fillImportDialog":
-        $state=$_GET['state'];
-        //$file=$_GET['file'];
-        echo drawImportDialogStateContent($state);
+        echo drawImportForm();
         break;
     default:
         echo "unrecognized widget-redraw function.";
@@ -51,43 +49,6 @@ function redrawLedger($range,$hook_id)
     $start_bal=getPriorBalance($db_login,$range['min']);
 
     echo drawLedger($db_login,$start_bal,$range,$hook_id);
-}
-
-// 0.2
-function drawImportDialogStateContent($state)
-{
-    $html_str="";
-    if($state=="base")
-    {
-        $html_str=drawImportForm();
-    }
-    else if ($state=="csv_upload")
-    {
-        if(validateUploadedFile()==true)
-        {
-            // where dows FILE come from?
-            if(importUploadedData($_FILE)==true)
-            {
-                $html_str="The import has completed.";
-            }
-            else
-            {
-                // this could use some better feedback.
-                $html_str="The data import failed.";
-            }
-        }
-        else
-        {
-            // This could use some better feedback about what failed
-            $html_str="Im sorry, that file load totaly failed.";
-        }
-    }
-    else
-    {
-        $html_str.="unrecognized page state.";
-    }
-
-    return $html_str;
 }
 
 // 0.2.1

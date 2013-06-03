@@ -198,7 +198,7 @@ function drawImportForm()
     $html_str.="<input type='hidden' name='MAX_FILE_SIZE' value='30000' />";
     $html_str.="<input type='hidden' name='state' value='csv_upload' />";
     $html_str.="<input name='datafile' type='file' />";
-    $html_str.="<input type='submit' value='Load File' />";
+    $html_str.="<input type='button' id='load_csv' value='Load File' />";
     $html_str.="</form>";
 
     return $html_str;
