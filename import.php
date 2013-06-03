@@ -35,7 +35,7 @@ function runImport($filename)
     $password=$login["pw"];
     $database=$login["dw"];
 
-    $mysqli=loadMySqli($location,$user,$password,$database)
+    $mysqli=loadMySqli($location,$user,$password,$database);
 
     // the top two rows of First Northern CSV files are a title, and col heads.
     $skip=2;

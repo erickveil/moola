@@ -38,8 +38,10 @@ $(function()
     fillImportDialog($("#import"));
 });
 
-// 0.1.1
-// date picker attributes need to be added on each reload of a widget
+/*
+* 0.1.1
+* date picker attributes need to be added on each reload of a widget
+*/
 function addDatepickers()
 {   
     // all of this work for something that will be native in html 5 -_-
