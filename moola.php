@@ -39,7 +39,8 @@ function drawCSS()
     $jqui_css_base=$jqui_css_path."jquery.ui.all.css";
 
     echo "<link rel='stylesheet' type='text/css' href='styles.css' />
-        <link rel='stylesheet' type='text/css' href='${jqui_css_base}' />";
+        <!--suppress HtmlUnknownTarget -->
+<link rel='stylesheet' type='text/css' href='${jqui_css_base}' />";
 }
 
 // 0.2

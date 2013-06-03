@@ -24,7 +24,7 @@ switch($func)
     case "redrawLedger":
         $range=Array('min'=>$_GET['min'], 'max'=>$_GET['max']);
         $hook_id=$_GET['hook'];
-        echo redrawLedger($range,$hook_id);
+        redrawLedger($range,$hook_id);
         break;
     case "fillImportDialog":
         echo drawImportForm();

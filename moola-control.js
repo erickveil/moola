@@ -33,8 +33,9 @@ $(function()
     });
 
     $("[button=import]").click(function(){
-        fillImportDialog($("#import"));
-        $("#import").dialog("open");
+        var import_dialog=$("#import");
+        fillImportDialog(import_dialog);
+        $(import_dialog).dialog("open");
     });
 
     // handle import dialog onclick
@@ -50,12 +51,15 @@ $(function()
 * date picker attributes need to be added on each reload of a widget
 */
 function addDatepickers()
-{   
-    // all of this work for something that will be native in html 5 -_-
-    var def_min=$("#min").val();
-    var def_max=$("#max").val();
+{
+    var min_date_field=$("#min");
+    var max_date_field=$("#max");
 
-    $("#min").datepicker({
+    // all of this work for something that will be native in html 5 -_-
+    var def_min=$(min_date_field).val();
+    var def_max=$(max_date_field).val();
+
+    $(min_date_field).datepicker({
         defaultDate: def_min,    
         dateFormat: "yy-mm-dd",
         changeYear: true,
@@ -64,7 +68,7 @@ function addDatepickers()
         }
     });
 
-    $("#max").datepicker({
+    $(max_date_field).datepicker({
         defaultDate: def_max,    
         dateFormat: "yy-mm-dd",
         changeYear: true,
@@ -105,7 +109,7 @@ function ledgerPrimaryFieldChange(new_val,dom_obj,sql_field)
         return;
     }
 
-    var entry=new Object;
+    var entry={};
     entry.serial=$("[field=ledger_serial][id="+id+"]").val();
     entry.amt=$("[field=ledger_amount][id="+id+"]").val();
     entry.comment=$("[field=ledger_com][id="+id+"]").val();
@@ -189,7 +193,7 @@ function getSource(ptr)
 // 0.1.2
 function fillImportDialog(hook_obj)
 {
-    var addy="widget-redraw.php?func=fillImportDialog&state="+state;
+    var addy="widget-redraw.php?func=fillImportDialog";
 
     $.ajax({
         type:"GET",
