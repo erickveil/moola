@@ -26,6 +26,7 @@ $(function()
         ledgerPrimaryFieldChange(new_amt,this,"AMOUNT");
     });
 
+    // draw import dialog box
     $("#import").dialog({
         autoOpen:false,
         title:"Load CSV File",
@@ -33,19 +34,33 @@ $(function()
     });
 
     $("[button=import]").click(function(){
-        $("#import").dialog("open");
+        var import_dialog=$("#import");
+        fillImportDialog(import_dialog);
+        $(import_dialog).dialog("open");
     });
+
+    // handle import dialog onclick
+    $("#load_csv").click(function(){
+
+    });
+
+
 });
 
-// 0.1.1
-// date picker attributes need to be added on each reload of a widget
+/*
+* 0.1.1
+* date picker attributes need to be added on each reload of a widget
+*/
 function addDatepickers()
-{   
-    // all of this work for something that will be native in html 5 -_-
-    var def_min=$("#min").val();
-    var def_max=$("#max").val();
+{
+    var min_date_field=$("#min");
+    var max_date_field=$("#max");
 
-    $("#min").datepicker({
+    // all of this work for something that will be native in html 5 -_-
+    var def_min=$(min_date_field).val();
+    var def_max=$(max_date_field).val();
+
+    $(min_date_field).datepicker({
         defaultDate: def_min,    
         dateFormat: "yy-mm-dd",
         changeYear: true,
@@ -54,7 +69,7 @@ function addDatepickers()
         }
     });
 
-    $("#max").datepicker({
+    $(max_date_field).datepicker({
         defaultDate: def_max,    
         dateFormat: "yy-mm-dd",
         changeYear: true,
@@ -95,7 +110,7 @@ function ledgerPrimaryFieldChange(new_val,dom_obj,sql_field)
         return;
     }
 
-    var entry=new Object;
+    var entry={};
     entry.serial=$("[field=ledger_serial][id="+id+"]").val();
     entry.amt=$("[field=ledger_amount][id="+id+"]").val();
     entry.comment=$("[field=ledger_com][id="+id+"]").val();
@@ -174,6 +189,26 @@ function getSource(ptr)
         cache:false,
         async:false
     }).responseText;
+}
+
+// 0.1.2
+function fillImportDialog(hook_obj)
+{
+    var addy="widget-redraw.php?func=fillImportDialog";
+
+    $.ajax({
+        type:"GET",
+        url:addy,
+        cache:false
+    }).done(function(return_text){
+        $(hook_obj).html(return_text);
+    });
+}
+
+// 0.1.2.1
+function warn(text)
+{
+    alert(text);
 }
 
 // 1.1.2

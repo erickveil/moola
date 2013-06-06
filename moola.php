@@ -16,7 +16,7 @@
 include "moola-modules.php";
 
 drawHTMLHead();
-drawHTMLBody();
+drawHTMLBody($_POST);
 drawHTMLFoot();
 
 
@@ -41,14 +41,15 @@ function drawCSS()
     $jqui_css_base=$jqui_css_path."jquery.ui.all.css";
 
     echo "<link rel='stylesheet' type='text/css' href='styles.css' />
-        <link rel='stylesheet' type='text/css' href='${jqui_css_base}' />";
+        <!--suppress HtmlUnknownTarget -->
+<link rel='stylesheet' type='text/css' href='${jqui_css_base}' />";
 }
 
 // 0.2
 /**
  *
  */
-function drawHTMLBody()
+function drawHTMLBody($_POST)
 {
     $location="localhost";
     $user="moola";
@@ -66,7 +67,9 @@ function drawHTMLBody()
 
     echo "<body>";
 
-    drawImportDialog();
+    echo drawState($_POST);
+
+    echo drawImportDialog();
 
     echo drawControls();
 
@@ -88,6 +91,16 @@ function getDefaultDateRange()
     $range=array("min"=>$lastyear, "max"=>$tomorrow);
 // print_r($range);
     return $range;
+}
+
+// 0.2.2
+function drawState($_POST)
+{
+    $state='';
+
+    $html_str="<input type='hidden' id='state' value='${state}'>";
+
+    return $html_str;
 }
 
 // 0.3

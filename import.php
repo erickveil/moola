@@ -8,47 +8,60 @@
 //
 // Converts csv files of a specific format into an sql table.
 //
+// 2013-05-20 Commented echo feedback in anticipation of script-level 
+// invocation. 
+// Modified script to run quietly, and able to be called on cli or uri.
+// Modified it again to make it a library only
+//
+// All commented code in this script expires on 2013-07-20
 // 
 
 include "common-lib.php";
 
-// the log-in information might later be configurable
-$location="localhost";
-$user="moola";
-$password="password";
-$database="moola";
-$mysqli=mysqli_connect($location,$user,$password,$database);
-if(mysqli_connect_errno())
+/*
+if(isset($argv[1]))
 {
-    $sql_err=mysqli_connect_error();
-    handleError("Failed to connect to database: $sql_err",$mysqli);
+    $filename=$argv[1];
 }
+ */
 
-// the top two rows of First Northern CSV files are a title, and col heads.
-$skip=2;
-
-// one parameter should be path to csv:
-$filename=$argv[1];
-
-$valid=explode(".",$filename);
-if($valid[count($valid)-1]!="csv")
+// 0.1.0
+function runImport($filename)
 {
-    $type=mime_content_type($filename);
-    handleError("The import file is not csv. Mimetype: ${type}",$mysqli);
+    $login=getLoginData();
+
+    $location=$login["loc"];
+    $user=$login["usr"];
+    $password=$login["pw"];
+    $database=$login["dw"];
+
+    $mysqli=loadMySqli($location,$user,$password,$database);
+
+    // the top two rows of First Northern CSV files are a title, and col heads.
+    $skip=2;
+    
+    $valid=explode(".",$filename);
+    if($valid[count($valid)-1]!="csv")
+    {
+        $type=mime_content_type($filename);
+        handleError("The import file is not csv. Mimetype: ${type}",$mysqli);
+    }
+
+    $flags=FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES;
+
+    $filerows=file($filename,$flags);
+    if($filerows===false)
+    {
+        handleError("The argument is not a valid file.",$mysqli);
+    }
+
+    importData($filerows,$skip,$mysqli);
+
+    //end
+    $mysqli->close();
+
+    return true;
 }
-
-$flags=FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES;
-
-$filerows=file($filename,$flags);
-if($filerows===false)
-{
-    handleError("The argument is not a valid file.",$mysqli);
-}
-
-importData($filerows,$skip,$mysqli);
-
-//end
-$mysqli->close();
 
 // 0.2.0
 // pass an array of rowws, and the number from the top to skip
@@ -71,7 +84,7 @@ function importData($filerows,$skip,$mysqli)
 
         if(isDuplicate($fields,$mysqli))
         {
-            echo "Duplicate found. Next.\n";
+            //echo "Duplicate found. Next.\n";
             continue;
         }
 
@@ -90,10 +103,10 @@ function importData($filerows,$skip,$mysqli)
         }
         $sql.=",\"download\")";
 
-        echo "executing: ${sql}\n";
+        //echo "executing: ${sql}\n";
         if($mysqli->query($sql)===true)
         {
-            echo "insert success.\n";
+            //echo "insert success.\n";
         }
         else
         {
@@ -158,7 +171,7 @@ function isDuplicate($fields,$mysqli)
 
     while($row=$result_obj->fetch_assoc())
     {
-        echo $row["DATE"]." vs ".$date." and ".$row["AMOUNT"]." vs ".$amt."\n";
+        //echo $row["DATE"]." vs ".$date." and ".$row["AMOUNT"]." vs ".$amt."\n";
         if("'".$row["DATE"]."'"=="$date" && $row["AMOUNT"]==$amt)
         {
             $result_obj->free();

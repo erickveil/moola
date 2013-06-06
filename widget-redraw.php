@@ -15,6 +15,8 @@
 //
 
 include "moola-modules.php";
+include "common-lib.php";
+
 $func=$_GET['func'];
 
 switch($func)
@@ -22,7 +24,10 @@ switch($func)
     case "redrawLedger":
         $range=Array('min'=>$_GET['min'], 'max'=>$_GET['max']);
         $hook_id=$_GET['hook'];
-        echo redrawLedger($range,$hook_id);
+        redrawLedger($range,$hook_id);
+        break;
+    case "fillImportDialog":
+        echo drawImportForm();
         break;
     default:
         echo "unrecognized widget-redraw function.";
@@ -45,3 +50,18 @@ function redrawLedger($range,$hook_id)
 
     echo drawLedger($db_login,$start_bal,$range,$hook_id);
 }
+
+// 0.2.1
+// This validation could be a little better
+function validateUploadedFile($_FILE,$_POST)
+{
+    return true;
+}
+
+// 0.2.2
+function importUploadedData($_FILE)
+{
+    $filename=$_FILE['datafile']['name'];
+    return runImport($filename);
+}
+

@@ -37,4 +37,6 @@ import.php to handle it.
 
 to view moola, point your browser to localhost/your_directory_structure/moola.php
 
-
+index states:
+base
+csv_upload
