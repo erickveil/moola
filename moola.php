@@ -1,15 +1,17 @@
 <?php
 
-// moola.php
-//
-// Erick Veil
-// 2013-04-07
-// 
+/**
+ * moola.php
+ *
+ * Erick Veil
+ * 2013-04-07
+
 // Personal Accounting Report page.
 //
 // Requires LAMP environment.
 // simlink required in /var/www/html
 //
+ */
 
 include "moola-modules.php";
 
@@ -43,6 +45,9 @@ function drawCSS()
 }
 
 // 0.2
+/**
+ *
+ */
 function drawHTMLBody()
 {
     $location="localhost";
@@ -58,7 +63,7 @@ function drawHTMLBody()
     $hook_id="hook_1";
 
     $start_bal=getPriorBalance($db_login,$range["min"]);
-    
+
     echo "<body>";
 
     drawImportDialog();
@@ -73,6 +78,9 @@ function drawHTMLBody()
 }
 
 // 0.2.1
+/**
+ * @return array
+ */
 function getDefaultDateRange()
 {
     $tomorrow=date("Y-m-d",mktime(0,0,0,date("m"),date("d")+1,date("Y")));
@@ -83,6 +91,9 @@ function getDefaultDateRange()
 }
 
 // 0.3
+/**
+ *
+ */
 function drawHTMLFoot()
 {
     echo "</html>";

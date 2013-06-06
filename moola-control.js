@@ -28,6 +28,7 @@ $(function()
 
     $("#import").dialog({
         autoOpen:false,
+        title:"Load CSV File",
         modal:true    
     });
 
