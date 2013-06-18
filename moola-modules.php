@@ -204,3 +204,19 @@ function drawImportForm()
     return $html_str;
 }
 
+function drawCategories($hook_id)
+{
+    $html_str="<div class='catagory_widget' form='widget' >";
+
+    // list
+
+    // new category
+    $html_str.="<input type='text' />";
+    $html_str.="<input type='button' value='Add New Category' ";
+    $html_str.="button='new_category' ";
+    $html_str.="/>";
+
+    $html_str.="</div>";
+
+    return $html_str;
+}

@@ -39,6 +39,10 @@ $(function()
         $(import_dialog).dialog("open");
     });
 
+    $("[button=new_category]").click(function(){
+        
+    });
+
     // handle import dialog onclick
     $("#load_csv").click(function(){
 

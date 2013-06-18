@@ -77,6 +77,11 @@ function drawHTMLBody($_POST)
     echo drawLedger($db_login,$start_bal,$range,$hook_id);
     echo "<div>";
 
+    $hook_id="hook_2";
+    echo "<div class='hook' id='${hook_id}'>";
+    echo drawCategories($hook_id);
+    echo "<div>";
+
     echo "</body>";
 }
 
