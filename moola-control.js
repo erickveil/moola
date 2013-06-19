@@ -40,7 +40,7 @@ $(function()
     });
 
     $("[button=new_category]").click(function(){
-        
+
     });
 
     // handle import dialog onclick
