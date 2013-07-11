@@ -294,8 +294,13 @@ function execImportScript()
         url:addy,
         cache:false
     }).done(function(return_val){
-        // maybe show a success dialog here?
-        // the import can fail, it should provide an exit status and report it here
-        warn("done: ["+return_val+"]");
+        if(return_val=="")
+        {
+            warn("The file was successfully imported.");
+        }
+        else
+        {
+            warn("Import error: "+return_val);
+        }
     });
 }

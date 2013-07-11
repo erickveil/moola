@@ -38,7 +38,9 @@ function runImport($filename)
     $valid=explode(".",$filename);
     if($valid[count($valid)-1]!="csv")
     {
-        $type=mime_content_type($filename);
+        // use fifinfo if you care that much.
+        //$type=mime_content_type($filename);
+        $type="unknown";
         handleError("The import file is not csv. Mimetype: ${type}",$mysqli);
     }
 
@@ -131,7 +133,7 @@ function fixQuotes($fields)
             $fields[$key]="\"\"";
         }
     }
-    print_r($fields);
+    //print_r($fields);
     return $fields;
 }
 
