@@ -15,6 +15,7 @@
 //
 
 include "common-lib.php";
+include "uploader_back.php";
 
 // 0.1
 // range: [min]=a [max]=b, should be dates, pre-validated.
@@ -187,8 +188,9 @@ function drawControls()
 // 0.3
 function drawImportDialog()
 {
-    $html_str= "<div id='import' ></div>";
-    return $html_str;
+    echo "<div id='import' >";
+    new Uploader('csv_upload','upload/','','','');
+    echo "</div>";
 }
 
 // 0.4

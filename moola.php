@@ -69,7 +69,7 @@ function drawHTMLBody($_POST)
 
     echo drawState($_POST);
 
-    echo drawImportDialog();
+    drawImportDialog();
 
     echo drawControls();
 

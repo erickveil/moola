@@ -35,7 +35,7 @@ $(function()
 
     $("[button=import]").click(function(){
         var import_dialog=$("#import");
-        fillImportDialog(import_dialog);
+        //fillImportDialog(import_dialog);
         $(import_dialog).dialog("open");
     });
 

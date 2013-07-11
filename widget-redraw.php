@@ -15,7 +15,7 @@
 //
 
 include "moola-modules.php";
-include "common-lib.php";
+//include "common-lib.php";
 
 $func=$_GET['func'];
 
