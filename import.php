@@ -28,7 +28,7 @@ function runImport($filename)
     $location=$login["loc"];
     $user=$login["usr"];
     $password=$login["pw"];
-    $database=$login["dw"];
+    $database=$login["db"];
 
     $mysqli=loadMySqli($location,$user,$password,$database);
 

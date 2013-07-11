@@ -108,7 +108,7 @@ function fixAmount($amount)
     $split_amt=explode(".",$amount);
     if($split_amt[0]==$amount)
     {
-        $ammount.="00";
+        $amount.="00";
     }
     return str_replace(".","",$amount);    
 }
