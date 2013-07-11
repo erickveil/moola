@@ -26,9 +26,6 @@ switch($func)
         $hook_id=$_GET['hook'];
         redrawLedger($range,$hook_id);
         break;
-    case "fillImportDialog":
-        echo drawImportForm();
-        break;
     default:
         echo "unrecognized widget-redraw function.";
         break;

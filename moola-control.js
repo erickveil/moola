@@ -26,29 +26,12 @@ $(function()
         ledgerPrimaryFieldChange(new_amt,this,"AMOUNT");
     });
 
-    // draw import dialog box
-    $("#import").dialog({
-        autoOpen:false,
-        title:"Load CSV File",
-        modal:true    
-    });
+    drawImportDialog();
 
-    $("[button=import]").click(function(){
-        var import_dialog=$("#import");
-        //fillImportDialog(import_dialog);
-        $(import_dialog).dialog("open");
-    });
-
+    // categories
     $("[button=new_category]").click(function(){
 
     });
-
-    // handle import dialog onclick
-    $("#load_csv").click(function(){
-
-    });
-
-
 });
 
 /*
@@ -265,4 +248,21 @@ function redrawLedger(hook_id,focus_selector)
 }
 
 // 0.3.0
+function drawImportDialog()
+{
+    var import_dialog=$("#import");
+    $(import_dialog).dialog({
+        autoOpen:false,
+        title:"Load CSV File",
+        modal:true
+    });
+
+    $("[button=import]").click(function(){
+        $(import_dialog).dialog("open");
+    });
+
+    $("#ul_cancel").click(function(){
+        $(import_dialog).dialog("close");
+    });
+}
 
