@@ -264,5 +264,11 @@ function drawImportDialog()
     $("#ul_cancel").click(function(){
         $(import_dialog).dialog("close");
     });
+
+    var up_complete=$("#upload_done").val();
+    if(up_complete=="failed")
+    {
+        $(import_dialog).dialog("open");
+    }
 }
 
