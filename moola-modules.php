@@ -189,7 +189,7 @@ function drawControls()
 function drawImportDialog()
 {
     echo "<div id='import' >";
-    new Uploader('csv_upload','upload/','','','');
+    new Uploader('csv_upload','upload/','','','execImportScript');
     echo "</div>";
 }
 
@@ -207,5 +207,11 @@ function drawCategories($hook_id)
 
     $html_str.="</div>";
 
+    return $html_str;
+}
+
+function drawWarning()
+{
+    $html_str="<div id='warn'></div>";
     return $html_str;
 }

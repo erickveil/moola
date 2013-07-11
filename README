@@ -30,7 +30,7 @@ First two lines are headders and skipped.
 fields are in this order:
 date,transaction ammount, check numbers, transaction type, comments
 - run 
-imprt.php path/to/file.csv
+import.php path/to/file.csv
 
 If your bank's csv is in a different format, you will have to modify
 import.php to handle it.

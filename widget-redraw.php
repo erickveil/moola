@@ -55,10 +55,3 @@ function validateUploadedFile($_FILE,$_POST)
     return true;
 }
 
-// 0.2.2
-function importUploadedData($_FILE)
-{
-    $filename=$_FILE['datafile']['name'];
-    return runImport($filename);
-}
-

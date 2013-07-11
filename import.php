@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php
 //
 // import.php
@@ -18,12 +17,8 @@
 
 include "common-lib.php";
 
-/*
-if(isset($argv[1]))
-{
-    $filename=$argv[1];
-}
- */
+// 0.0.0 main
+runImport($_GET['file']);
 
 // 0.1.0
 function runImport($filename)

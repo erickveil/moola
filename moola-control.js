@@ -32,6 +32,12 @@ $(function()
     $("[button=new_category]").click(function(){
 
     });
+
+    $("#warn").dialog({
+        autoOpen:false,
+        modal:true
+    });
+
 });
 
 /*
@@ -195,7 +201,9 @@ function fillImportDialog(hook_obj)
 // 0.1.2.1
 function warn(text)
 {
-    alert(text);
+    //alert(text);
+    $("#warn").html(text);
+    $("#warn").dialog("open");
 }
 
 // 1.1.2
@@ -272,3 +280,22 @@ function drawImportDialog()
     }
 }
 
+// 0.4.0
+/**
+ * Called by the Uploader Object after an upload is complete.
+ */
+function execImportScript()
+{
+    var filename=$("#upload_done").attr("filename");
+    var addy="import.php?file="+filename;
+
+    $.ajax({
+        type:"GET",
+        url:addy,
+        cache:false
+    }).done(function(return_val){
+        // maybe show a success dialog here?
+        // the import can fail, it should provide an exit status and report it here
+        warn("done: ["+return_val+"]");
+    });
+}
